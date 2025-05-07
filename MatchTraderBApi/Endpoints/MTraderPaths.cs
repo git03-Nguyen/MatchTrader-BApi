@@ -10,22 +10,22 @@ public static class MTraderPaths
     // General
     public static string ServiceInfo() => "/service-info";
     
-    public static string GetBranches(DateTime? from, DateTime? to, BasicSortingField? sortField, SortingOrder? sortOrder) => "/v1/branches" +
+    public static string GetBranches(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder) => "/v1/branches" +
         $"?from={from.ToString()}" +
         $"&to={to.ToString()}" +
         $"&sort={string.Join(',', sortField?.ToEnumString(), sortOrder?.ToEnumString())}";
     
-    public static string GetOffers(DateTime? from, DateTime? to, BasicSortingField? sortField, SortingOrder? sortOrder) => "/v1/offers" +
+    public static string GetOffers(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder) => "/v1/offers" +
         $"?from={from.ToString()}" +
         $"&to={to.ToString()}" +
         $"&sort={string.Join(',', sortField?.ToEnumString(), sortOrder?.ToEnumString())}";
     
-    public static string GetRoles(DateTime? from, DateTime? to, BasicSortingField? sortField, SortingOrder? sortOrder) => "/v1/roles" +
+    public static string GetRoles(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder) => "/v1/roles" +
         $"?from={from.ToString()}" +
         $"&to={to.ToString()}" +
         $"&sort={string.Join(',', sortField?.ToEnumString(), sortOrder?.ToEnumString())}";
     
-    public static string RetrievePlatformLogsV2(int? page, int? size, DateTime? from, DateTime? to, SortingOrder? sortOrder) => "/v2/platform-logs" +
+    public static string RetrievePlatformLogsV2(int? page, int? size, DateTime? from, DateTime? to, MTrSortingOrder? sortOrder) => "/v2/platform-logs" +
         $"?page={page.ToString()}" +
         $"&size={size.ToString()}" +
         $"&from={from.ToString()}" +
@@ -34,7 +34,7 @@ public static class MTraderPaths
 
     // Accounts
     public static string GetAccounts(
-        string? query, int? page, int? size, DateTime? from, DateTime? to, AccountType? accountType, AccountSortingField? sortField, SortingOrder? sortingOrder)
+        string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType, MTrAccountSortingField? sortField, MTrSortingOrder? sortingOrder)
         => "/v1/accounts" +
            $"?query={query}" +
            $"&page={page.ToString()}" +
@@ -47,7 +47,7 @@ public static class MTraderPaths
     public static string GetAccountByEmail(string email) => $"/v1/accounts/by-email/{email}";
     public static string GetAccountByUuid(string accountUuid) => $"/v1/accounts/by-uuid/{accountUuid}";
     
-    public static string GetAccountTimelineEvents(string accountUuid, AccountTimelineEventType? eventType, DateTime? from, DateTime? to, BasicSortingField? sortField, SortingOrder? sortOrder)
+    public static string GetAccountTimelineEvents(string accountUuid, MTrAccountTimelineEventType? eventType, DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder)
         => $"/v1/accounts/{accountUuid}/timeline-events" +
            $"?eventType={eventType?.ToEnumString()}" +
            $"&from={from.ToString()}" +
@@ -62,7 +62,7 @@ public static class MTraderPaths
 
     // Trading Accounts
     public static string GetTradingAccounts(
-        string? query, int? page, int? size, DateTime? from, DateTime? to, TradingAccountSortingField? sortField, SortingOrder? sortOrder) 
+        string? query, int? page, int? size, DateTime? from, DateTime? to, MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder) 
         => "/v1/trading-accounts" +
            $"?query={query}" +
            $"&page={page.ToString()}" +
@@ -101,7 +101,7 @@ public static class MTraderPaths
            $"&to={to.ToString()}";
     
     public static string GetActiveOrders(string systemUuid, string login) => $"/v1/trading-accounts/trading-data/active-orders?systemUuid={systemUuid}&login={login}";
-    public static string GetLedgers(string systemUuid, string login, LedgerType[] types, DateTime? from, DateTime? to, int? limit)
+    public static string GetLedgers(string systemUuid, string login, MTrLedgerType[] types, DateTime? from, DateTime? to, int? limit)
         => $"/v1/trading-accounts/trading-data/ledgers" +
            $"?systemUuid={systemUuid}" +
            $"&login={login}" +
@@ -122,7 +122,7 @@ public static class MTraderPaths
     public static string RetrieveActiveOrdersByIds() => "/v1/trading-accounts/trading-data/active-orders-by-ids";
     
     // Candles
-    public static string GetCandles(string systemUuid, string symbol, CandleInterval interval, DateTime from, DateTime to)
+    public static string GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTime from, DateTime to)
         => $"/v1/candles" +
            $"?systemUuid={systemUuid}" +
            $"&symbol={symbol}" +

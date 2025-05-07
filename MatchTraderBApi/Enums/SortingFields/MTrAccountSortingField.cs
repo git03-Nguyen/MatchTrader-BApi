@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Enums.SortingFields;
 
-public enum AccountSortingField
+public enum MTrAccountSortingField
 {
     [EnumMember(Value = "created")]
     Created,

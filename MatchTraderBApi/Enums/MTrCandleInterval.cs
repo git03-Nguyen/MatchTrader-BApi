@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Enums;
 
-public enum CandleInterval
+public enum MTrCandleInterval
 {
     [EnumMember(Value = "M1")]
     M1,

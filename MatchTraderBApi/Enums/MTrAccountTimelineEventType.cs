@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Enums;
 
-public enum AccountTimelineEventType
+public enum MTrAccountTimelineEventType
 {
     [EnumMember(Value = "VOIP_CALL")]
     VoIPCall,

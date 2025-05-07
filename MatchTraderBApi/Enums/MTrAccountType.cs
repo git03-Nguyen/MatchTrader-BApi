@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Enums;
 
-public enum AccountType
+public enum MTrAccountType
 {
     [EnumMember(Value = "ALL")]
     All,

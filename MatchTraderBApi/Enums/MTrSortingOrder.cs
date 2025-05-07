@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Enums;
 
-public enum SortingOrder
+public enum MTrSortingOrder
 {
     [EnumMember(Value = "asc")]
     Asc,

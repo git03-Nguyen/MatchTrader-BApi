@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Enums;
 
-public enum LedgerType
+public enum MTrLedgerType
 {
     [EnumMember(Value = "DEPOSIT")]
     Deposit,
