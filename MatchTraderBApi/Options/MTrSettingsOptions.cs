@@ -1,6 +1,6 @@
 namespace MatchTraderBApi.Options;
 
-public class MTraderSettings
+public class MTrSettingsOptions
 {
     public string Host { get; set; } = string.Empty;
     public string ApiKey { get; set; } = string.Empty;
