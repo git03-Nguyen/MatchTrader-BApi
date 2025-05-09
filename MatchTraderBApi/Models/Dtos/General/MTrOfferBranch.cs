@@ -11,7 +11,7 @@ public class MTrOfferBranch
     public long? PartnerId { get; set; }
 
     [JsonPropertyName("created")]
-    public string Created { get; set; }
+    public DateTime Created { get; set; }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
