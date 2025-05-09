@@ -1,0 +1,17 @@
+using System.Text.Json.Serialization;
+using MatchTraderBApi.Models.Dtos;
+using MatchTraderBApi.Models.Dtos.Trading;
+
+namespace MatchTraderBApi.Models.Responses.Trading.TradingData.Candle;
+
+public class MTrGetCandlesResponse
+{
+    [JsonPropertyName("symbol")]
+    public string Symbol { get; set; }
+
+    [JsonPropertyName("interval")]
+    public string Interval { get; set; }
+
+    [JsonPropertyName("candles")]
+    public List<MTrCandle> Candles { get; set; }
+}

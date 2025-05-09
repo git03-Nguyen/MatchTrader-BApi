@@ -4,8 +4,8 @@ using MatchTraderBApi.Models.Dtos.General;
 
 namespace MatchTraderBApi.Models.Responses.General;
 
-public class GetOffersResponse
+public class MTrGetRolesResponse
 {
-    [JsonPropertyName("offers")]
-    public List<MTrOffer> Offers { get; set; }
+    [JsonPropertyName("roles")]
+    public List<MTrRole> Roles { get; set; }
 }
