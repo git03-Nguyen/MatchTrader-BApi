@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace MatchTraderBApi.Extensions;
 
-public static class ConversionExtensions
+internal static class ConversionExtensions
 {
     internal static string ToEnumString(this Enum enumValue)
     {

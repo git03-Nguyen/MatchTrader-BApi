@@ -1,6 +1,5 @@
 namespace MatchTraderBApi.Constants.gRPCEndpoints;
 
-public static class BaseEndpoints
+internal static class BaseEndpoints
 {
-    
 }

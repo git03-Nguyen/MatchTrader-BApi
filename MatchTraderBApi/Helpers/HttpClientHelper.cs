@@ -7,7 +7,7 @@ using MatchTraderBApi.Options;
 
 namespace MatchTraderBApi.Helpers;
 
-public static class HttpClientHelper
+internal static class HttpClientHelper
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
