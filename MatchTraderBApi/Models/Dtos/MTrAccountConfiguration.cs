@@ -14,7 +14,7 @@ public class MTrAccountConfiguration
     public string RoleUuid { get; set; }
 
     [JsonPropertyName("accountManager")]
-    public MtrAccountManager MtrAccountManager { get; set; }
+    public MTrAccountManager MtrAccountManager { get; set; }
 
     [JsonPropertyName("ibParentTradingAccountUuid")]
     public string IbParentTradingAccountUuid { get; set; }
@@ -26,7 +26,7 @@ public class MTrAccountConfiguration
     public bool AccountTypeContact { get; set; }
 }
 
-public class MtrAccountManager
+public class MTrAccountManager
 {
     [JsonPropertyName("uuid")]
     public string Uuid { get; set; }
