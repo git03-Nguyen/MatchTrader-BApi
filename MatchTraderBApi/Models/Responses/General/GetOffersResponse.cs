@@ -14,7 +14,7 @@ public class Offer
     public string Uuid { get; set; }
 
     [JsonPropertyName("partnerId")]
-    public string? PartnerId { get; set; }
+    public long? PartnerId { get; set; }
 
     [JsonPropertyName("created")]
     public string Created { get; set; }
@@ -71,7 +71,7 @@ public class OfferBranch
     public string Uuid { get; set; }
 
     [JsonPropertyName("partnerId")]
-    public string? PartnerId { get; set; }
+    public long? PartnerId { get; set; }
 
     [JsonPropertyName("created")]
     public string Created { get; set; }
@@ -86,7 +86,7 @@ public class OfferSystem
     public string Uuid { get; set; }
 
     [JsonPropertyName("partnerId")]
-    public string? PartnerId { get; set; }
+    public long? PartnerId { get; set; }
 
     [JsonPropertyName("created")]
     public string Created { get; set; }

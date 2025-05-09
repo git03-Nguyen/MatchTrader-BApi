@@ -15,6 +15,13 @@ public class Role
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
-
-    // Add other properties here if known, e.g., permissions
+    
+    [JsonPropertyName("partnerId")]
+    public long? PartnerId { get; set; }
+    
+    [JsonPropertyName("created")]
+    public string created { get; set; }
+    
+    [JsonPropertyName("updated")]
+    public string updated { get; set; }
 }
