@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
 using MatchTraderBApi.Models.Dtos;
 using MatchTraderBApi.Models.Dtos.Account;
 
@@ -16,7 +17,7 @@ public class MTrCreateAccountRequest
     public string? OfferUuid { get; set; }
     
     [JsonPropertyName("clientType")]
-    public string? ClientType { get; set; }
+    public MTrClientType? ClientType { get; set; }
     
     [JsonPropertyName("createAsDepositedAccount")]
     public bool CreateAsDepositedAccount { get; set; }
@@ -28,7 +29,7 @@ public class MTrCreateAccountRequest
     public MTrUserContact? ContactDetails { get; set; }
     
     [JsonPropertyName("accountConfiguration")]
-    public MTrCreateAccountConfigurationData? AccountConfiguration { get; set; }
+    public MTrAccountConfigurationForCreate? AccountConfiguration { get; set; }
     
     [JsonPropertyName("addressDetails")]
     public MTrUserAddress? AddressDetails { get; set; }

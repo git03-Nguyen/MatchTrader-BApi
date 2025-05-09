@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Requests.Trading;
 
@@ -11,16 +12,13 @@ public class MTrCreateCorrectionOrderRequest
     public string Login { get; set; }
 
     [JsonPropertyName("instrument")]
-    public string Instrument { get; set; }
+    public string Symbol { get; set; }
 
     [JsonPropertyName("volume")]
     public decimal Volume { get; set; }
 
-    /// <summary>
-    /// Values: LIMIT, STOP
-    /// </summary>
     [JsonPropertyName("side")]
-    public string Side { get; set; }
+    public MTrOrderSide Side { get; set; }
 
     [JsonPropertyName("price")]
     public string Price { get; set; }

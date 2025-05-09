@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
+using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Requests.Trading;
 
@@ -11,10 +13,10 @@ public class MTrOpenPositionRequest
     public string Login { get; set; }
 
     [JsonPropertyName("instrument")]
-    public string Instrument { get; set; } // symbol name
+    public string Symbol { get; set; }
 
     [JsonPropertyName("orderSide")]
-    public string OrderSide { get; set; }
+    public MTrOrderSide Side { get; set; }
 
     [JsonPropertyName("volume")]
     public decimal Volume { get; set; }

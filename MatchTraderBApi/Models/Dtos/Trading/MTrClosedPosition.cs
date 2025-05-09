@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace MatchTraderBApi.Models.Dtos.Trading;
 
-public class MTrClosePosition
+public class MTrClosedPosition
 {
     [JsonPropertyName("time")]
     public string Time { get; set; }

@@ -1,14 +1,15 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
 
 namespace MatchTraderBApi.Models.Requests.Accounts;
 
-public class MTrCreateAccountNoteRequest
+public class MTrAddAccountNoteRequest
 {
     [JsonPropertyName("accountUuid")]
     public string AccountUuid { get; set; }
     
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrNoteType Type { get; set; }
     
     [JsonPropertyName("content")]
     public string Content { get; set; }

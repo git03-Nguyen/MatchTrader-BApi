@@ -11,11 +11,11 @@ public class MTrRetrieveClosedPositionsByIdsRequest
     public string Login { get; set; }
 
     [JsonPropertyName("from")]
-    public string From { get; set; }
+    public DateTime From { get; set; }
 
     [JsonPropertyName("to")]
-    public string To { get; set; }
+    public DateTime To { get; set; }
 
     [JsonPropertyName("ids")]
-    public List<string> Ids { get; set; }
+    public List<string> PositionIds { get; set; }
 }

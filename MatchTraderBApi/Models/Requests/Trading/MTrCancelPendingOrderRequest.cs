@@ -11,7 +11,7 @@ public class MTrCancelPendingOrderRequest
     public string Login { get; set; }
 
     [JsonPropertyName("instrument")]
-    public string Instrument { get; set; }
+    public string Symbol { get; set; }
 
     [JsonPropertyName("orderId")]
     public string OrderId { get; set; }

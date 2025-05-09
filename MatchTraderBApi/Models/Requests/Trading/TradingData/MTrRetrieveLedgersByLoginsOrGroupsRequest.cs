@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums;
 
 namespace MatchTraderBApi.Models.Requests.Trading.TradingData;
 
@@ -8,7 +9,7 @@ public class MTrRetrieveLedgersByLoginsOrGroupsRequest
     public string SystemUuid { get; set; }
 
     [JsonPropertyName("types")]
-    public List<string> Types { get; set; }
+    public List<MTrLedgerType> Types { get; set; }
 
     [JsonPropertyName("logins")]
     public List<string> Logins { get; set; }
@@ -17,10 +18,10 @@ public class MTrRetrieveLedgersByLoginsOrGroupsRequest
     public List<string> Groups { get; set; }
 
     [JsonPropertyName("from")]
-    public string From { get; set; }
+    public DateTime? From { get; set; }
 
     [JsonPropertyName("to")]
-    public string To { get; set; }
+    public DateTime? To { get; set; }
 
     [JsonPropertyName("limit")]
     public int? Limit { get; set; }

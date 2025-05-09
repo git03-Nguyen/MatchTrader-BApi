@@ -7,5 +7,5 @@ namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
 public class MTrGetClosedPositionsResponse
 {
     [JsonPropertyName("closedPositions")]
-    public List<MTrClosePosition> ClosedPositions { get; set; }
+    public List<MTrClosedPosition> ClosedPositions { get; set; }
 }

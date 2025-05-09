@@ -1,20 +1,21 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
 
 namespace MatchTraderBApi.Models.Requests.Accounts;
 
-public class MTrCreateAccountTaskRequest
+public class MTrAddAccountTaskRequest
 {
     [JsonPropertyName("accountUuid")]
     public string AccountUuid { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrTaskType Type { get; set; }
 
     [JsonPropertyName("startDate")]
     public DateTime StartDate { get; set; }
 
     [JsonPropertyName("status")]
-    public string Status { get; set; }
+    public MTrTaskStatus Status { get; set; }
 
     [JsonPropertyName("accountManagerUuid")]
     public string AccountManagerUuid { get; set; }

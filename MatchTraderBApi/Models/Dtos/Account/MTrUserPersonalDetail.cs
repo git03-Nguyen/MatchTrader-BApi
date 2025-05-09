@@ -11,29 +11,20 @@ public class MTrUserPersonalDetail
     public string Lastname { get; set; }
 
     [JsonPropertyName("dateOfBirth")]
-    public string DateOfBirth { get; set; } = string.Empty;
+    public DateTime DateOfBirth { get; set; }
 
     [JsonPropertyName("citizenship")]
-    public string Citizenship { get; set; } = string.Empty;
+    public string Citizenship { get; set; }
 
     [JsonPropertyName("language")]
-    public string Language { get; set; } = string.Empty;
+    public string Language { get; set; }
 
     [JsonPropertyName("maritalStatus")]
-    public string MaritalStatus { get; set; } = string.Empty;
+    public string MaritalStatus { get; set; }
 
     [JsonPropertyName("passport")]
     public MTrUserPassport? MTrUserPassport { get; set; }
 
     [JsonPropertyName("taxIdentificationNumber")]
-    public string TaxIdentificationNumber { get; set; } = string.Empty;
-}
-
-public class MTrUserPassport
-{
-    [JsonPropertyName("number")]
-    public string Number { get; set; } = string.Empty;
-
-    [JsonPropertyName("country")]
-    public string Country { get; set; } = string.Empty;
+    public string TaxIdentificationNumber { get; set; }
 }

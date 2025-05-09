@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
+using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Requests.Trading;
 
@@ -10,17 +12,11 @@ public class MTrCreatePendingOrderRequest
     [JsonPropertyName("login")]
     public string Login { get; set; }
 
-    /// <summary>
-    /// Symbol name
-    /// </summary>
     [JsonPropertyName("instrument")]
-    public string Instrument { get; set; } 
+    public string Symbol { get; set; } 
 
-    /// <summary>
-    /// Values: BUY, SELL
-    /// </summary>
     [JsonPropertyName("orderSide")]
-    public string OrderSide { get; set; }
+    public MTrOrderSide Side { get; set; }
 
     [JsonPropertyName("volume")]
     public decimal Volume { get; set; }
@@ -34,9 +30,6 @@ public class MTrCreatePendingOrderRequest
     [JsonPropertyName("activationPrice")]
     public decimal? ActivationPrice { get; set; }
 
-    /// <summary>
-    /// Values: LIMIT, STOP
-    /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrOrderType Type { get; set; }
 }

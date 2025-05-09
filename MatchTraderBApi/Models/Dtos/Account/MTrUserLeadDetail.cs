@@ -14,5 +14,5 @@ public class MTrUserLeadDetail
     public string? ProviderUuid { get; set; }
 
     [JsonPropertyName("becomeActiveClientTime")]
-    public string BecomeActiveClientTime { get; set; }
+    public DateTime BecomeActiveClientTime { get; set; }
 }

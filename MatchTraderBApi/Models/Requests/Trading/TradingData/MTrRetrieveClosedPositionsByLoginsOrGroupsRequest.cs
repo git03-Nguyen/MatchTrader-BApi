@@ -14,16 +14,16 @@ public class MTrRetrieveClosedPositionsByLoginsOrGroupsRequest
     public List<string> Groups { get; set; }
 
     [JsonPropertyName("from")]
-    public string From { get; set; }
+    public DateTime From { get; set; }
 
     [JsonPropertyName("to")]
-    public string To { get; set; }
+    public DateTime To { get; set; }
 
     [JsonPropertyName("includeLocked")]
-    public bool IncludeLocked { get; set; }
+    public bool? IncludeLocked { get; set; }
 
     [JsonPropertyName("includeBlocked")]
-    public bool IncludeBlocked { get; set; }
+    public bool? IncludeBlocked { get; set; }
 
     [JsonPropertyName("limit")]
     public int? Limit { get; set; }

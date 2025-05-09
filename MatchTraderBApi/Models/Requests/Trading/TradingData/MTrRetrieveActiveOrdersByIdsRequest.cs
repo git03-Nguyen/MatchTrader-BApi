@@ -11,5 +11,5 @@ public class MTrRetrieveActiveOrdersByIdsRequest
     public string Login { get; set; }
 
     [JsonPropertyName("ids")]
-    public List<string> Ids { get; set; }
+    public List<string> OrderIds { get; set; }
 }

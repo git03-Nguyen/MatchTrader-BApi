@@ -11,7 +11,7 @@ public class MTrEditPositionRequest
     public string Login { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string PositionId { get; set; }
 
     [JsonPropertyName("slPrice")]
     public decimal? SLPrice { get; set; }

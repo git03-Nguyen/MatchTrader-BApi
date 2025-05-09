@@ -14,7 +14,7 @@ public class MTrClosePartialPositionRequest
     public string PositionId { get; set; }
 
     [JsonPropertyName("instrument")]
-    public string Instrument { get; set; }
+    public string Symbol { get; set; }
 
     [JsonPropertyName("volume")]
     public decimal Volume { get; set; }

@@ -2,11 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace MatchTraderBApi.Models.Dtos.Trading;
 
-public class MTrClosePositionData
+public class MTrPositionForClose
 {
     [JsonPropertyName("positionId")]
-    public string PositionId { get; set; }
+    public string Id { get; set; }
 
     [JsonPropertyName("instrument")]
-    public string Instrument { get; set; }
+    public string Symbol { get; set; }
 }

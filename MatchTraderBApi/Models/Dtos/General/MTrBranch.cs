@@ -11,10 +11,10 @@ public class MTrBranch
     public string PartnerId { get; set; }
 
     [JsonPropertyName("created")]
-    public string Created { get; set; }
+    public DateTime Created { get; set; }
 
     [JsonPropertyName("updated")]
-    public string Updated { get; set; }
+    public DateTime Updated { get; set; }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }

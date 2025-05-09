@@ -13,5 +13,5 @@ public class MTrClosePositionsRequest
     public string Login { get; set; }
 
     [JsonPropertyName("closePositions")]
-    public List<MTrClosePositionData> ClosePositions { get; set; }
+    public List<MTrPositionForClose> ClosePositions { get; set; }
 }

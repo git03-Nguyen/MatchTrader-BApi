@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
 
 namespace MatchTraderBApi.Models.Requests.Accounts.TradingAcounts;
 
@@ -8,8 +9,8 @@ public class MTrUpdateTradingAccountRequest
     public string OfferUuid { get; set; }
     
     [JsonPropertyName("commissionUuid")]
-    public string CommissionUuid { get; set; } = string.Empty;
+    public string CommissionUuid { get; set; }
     
     [JsonPropertyName("access")]
-    public string Access { get; set; } = string.Empty;
+    public MTrTradingAccountAccess Access { get; set; }
 }
