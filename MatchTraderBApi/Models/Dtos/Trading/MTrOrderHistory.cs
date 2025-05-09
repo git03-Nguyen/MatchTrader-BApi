@@ -8,7 +8,7 @@ public class MTrOrderHistory
     public string OrderId { get; set; }
 
     [JsonPropertyName("created")]
-    public string Created { get; set; }
+    public DateTime Created { get; set; }
 
     [JsonPropertyName("symbol")]
     public string Symbol { get; set; }

@@ -17,8 +17,8 @@ public class MTrMailingConfiguration
     public int? EmailPort { get; set; } // Nullable int for emailPort
 
     [JsonPropertyName("emailTls")]
-    public bool EmailTls { get; set; }
+    public bool IsEmailTls { get; set; }
 
     [JsonPropertyName("emailSsl")]
-    public bool EmailSsl { get; set; }
+    public bool IsEmailSsl { get; set; }
 }

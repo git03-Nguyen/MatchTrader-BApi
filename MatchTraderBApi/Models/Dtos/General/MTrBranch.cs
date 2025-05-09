@@ -23,7 +23,7 @@ public class MTrBranch
     public MTrMailingConfiguration MTrMailingConfiguration { get; set; }
 
     [JsonPropertyName("tfaRequiredForClients")]
-    public bool TfaRequiredForClients { get; set; }
+    public bool IsTfaRequiredForClients { get; set; }
 
     [JsonPropertyName("mt4RealServerName")]
     public string Mt4RealServerName { get; set; }
@@ -38,7 +38,7 @@ public class MTrBranch
     public string Mt5DemoServerName { get; set; }
 
     [JsonPropertyName("useSumSubKyc")]
-    public bool UseSumSubKyc { get; set; }
+    public bool IsUseSumSubKyc { get; set; }
 
     [JsonPropertyName("paymentGatewayUuids")]
     public List<string> PaymentGatewayUuids { get; set; }

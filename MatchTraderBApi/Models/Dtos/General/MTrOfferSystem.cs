@@ -11,16 +11,16 @@ public class MTrOfferSystem
     public long? PartnerId { get; set; }
 
     [JsonPropertyName("created")]
-    public string Created { get; set; }
+    public DateTime Created { get; set; }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
     [JsonPropertyName("demo")]
-    public bool Demo { get; set; }
+    public bool IsDemo { get; set; }
 
     [JsonPropertyName("active")]
-    public bool Active { get; set; }
+    public bool IsActive { get; set; }
 
     [JsonPropertyName("systemType")]
     public string SystemType { get; set; }
