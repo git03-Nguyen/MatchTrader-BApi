@@ -5,14 +5,14 @@ namespace MatchTraderBApi.Models.Dtos.Account;
 public class MTrUserLeadDetail
 {
     [JsonPropertyName("statusUuid")]
-    public string StatusUuid { get; set; }
+    public string? StatusUuid { get; set; }
 
     [JsonPropertyName("source")]
-    public string Source { get; set; }
+    public string? Source { get; set; }
 
     [JsonPropertyName("providerUuid")]
     public string? ProviderUuid { get; set; }
 
     [JsonPropertyName("becomeActiveClientTime")]
-    public DateTime BecomeActiveClientTime { get; set; }
+    public DateTime? BecomeActiveClientTime { get; set; }
 }

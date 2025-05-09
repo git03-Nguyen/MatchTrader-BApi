@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Dtos.Trading;
 
@@ -23,7 +24,7 @@ public class MTrPosition
     public decimal? TakeProfit { get; set; }
 
     [JsonPropertyName("openTime")]
-    public string OpenTime { get; set; }
+    public DateTime OpenTime { get; set; }
 
     [JsonPropertyName("openPrice")]
     public decimal? OpenPrice { get; set; }
@@ -36,6 +37,9 @@ public class MTrPosition
 
     [JsonPropertyName("netProfit")]
     public decimal? NetProfit { get; set; }
+    
+    [JsonPropertyName("side")]
+    public MTrOrderSide Side { get; set; }
 
     [JsonPropertyName("currentPrice")]
     public decimal? CurrentPrice { get; set; }

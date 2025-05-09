@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
 
 namespace MatchTraderBApi.Models.Dtos.Account;
 
@@ -8,19 +9,19 @@ public class MTrAccount
     public string Uuid { get; set; }
 
     [JsonPropertyName("created")]
-    public string Created { get; set; }
+    public DateTime? Created { get; set; }
 
     [JsonPropertyName("updated")]
-    public string Updated { get; set; }
+    public DateTime? Updated { get; set; }
 
     [JsonPropertyName("email")]
     public string Email { get; set; }
 
     [JsonPropertyName("verificationStatus")]
-    public string VerificationStatus { get; set; }
+    public MTrVerificationStatus VerificationStatus { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrClientType? ClientType { get; set; }
 
     [JsonPropertyName("personalDetails")]
     public MTrUserPersonalDetail MTrUserPersonalDetail { get; set; }

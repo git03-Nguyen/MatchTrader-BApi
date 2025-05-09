@@ -1,14 +1,12 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Responses.Trading;
 
 public class MTrClosePartialPositionResponse
 {
-    /// <summary>
-    /// Values: OK, REJECTED, PARTIAL_SUCCESS
-    /// </summary>
     [JsonPropertyName("status")]
-    public string Status { get; set; }
+    public MTrTradingExecutionStatus Status { get; set; }
     
     [JsonPropertyName("orderId")]
     public string OrderId { get; set; }

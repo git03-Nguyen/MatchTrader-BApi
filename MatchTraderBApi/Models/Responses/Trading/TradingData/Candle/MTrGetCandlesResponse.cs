@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums;
 using MatchTraderBApi.Models.Dtos;
 using MatchTraderBApi.Models.Dtos.Trading;
 
@@ -10,7 +11,7 @@ public class MTrGetCandlesResponse
     public string Symbol { get; set; }
 
     [JsonPropertyName("interval")]
-    public string Interval { get; set; }
+    public MTrCandleInterval Interval { get; set; }
 
     [JsonPropertyName("candles")]
     public List<MTrCandle> Candles { get; set; }

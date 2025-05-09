@@ -7,5 +7,5 @@ namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
 public class MTrGetLedgerResponse
 {
     [JsonPropertyName("operations")]
-    public List<MTrLedger> Operrations { get; set; }
+    public List<MTrLedger> Operations { get; set; }
 }

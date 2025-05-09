@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums;
 
 namespace MatchTraderBApi.Models.Dtos.Trading;
 
@@ -8,10 +9,10 @@ public class MTrLedger
     public string Id { get; set; }
     
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrLedgerType Type { get; set; }
 
     [JsonPropertyName("time")]
-    public string Time { get; set; }
+    public DateTime Time { get; set; }
 
     [JsonPropertyName("profit")]
     public decimal? Profit { get; set; }

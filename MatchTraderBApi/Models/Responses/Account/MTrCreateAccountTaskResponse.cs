@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Account;
 
 namespace MatchTraderBApi.Models.Responses.Account;
 
@@ -11,13 +12,13 @@ public class MTrCreateAccountTaskResponse
     public string AccountUuid { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrTaskType Type { get; set; }
 
     [JsonPropertyName("startDate")]
     public string StartDate { get; set; }
 
     [JsonPropertyName("status")]
-    public string Status { get; set; }
+    public MTrTaskStatus Status { get; set; }
 
     [JsonPropertyName("accountManagerUuid")]
     public string AccountManagerUuid { get; set; }

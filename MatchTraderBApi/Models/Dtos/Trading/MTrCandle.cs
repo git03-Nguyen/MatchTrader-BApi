@@ -5,7 +5,7 @@ namespace MatchTraderBApi.Models.Dtos.Trading;
 public class MTrCandle
 {
     [JsonPropertyName("time")]
-    public string? Time { get; set; }
+    public long? Time { get; set; }
 
     [JsonPropertyName("open")]
     public decimal? Open { get; set; }

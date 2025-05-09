@@ -7,5 +7,5 @@ namespace MatchTraderBApi.Models.Responses.Account;
 public class MTrGetAccountTimelineEventsResponse
 {
     [JsonPropertyName("timelineEvents")]
-    public List<MTrTimelineEvent> TimeLineEvents { get; set; }
+    public List<MTrTimelineEvent> TimeLineEvents { get; set; } = new ();
 }
