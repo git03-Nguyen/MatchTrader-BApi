@@ -10,20 +10,32 @@ using MatchTraderBApi.Models.Responses;
 using MatchTraderBApi.Models.Responses.Account;
 using MatchTraderBApi.Models.Responses.General;
 using MatchTraderBApi.Options;
-using Microsoft.Extensions.Options;
 
 namespace MatchTraderBApi.Services;
 
 public class MTrBrokerApi : IMTrBrokerApi
 {
-    public HttpClient HttpClient { get; set; }
-    private readonly MTrSettingsOptions _settings;
-    public MTrBrokerApi
+    public static MTrBrokerApi Create
     (
-        IOptions<MTrSettingsOptions> settings
+        IHttpClientFactory httpClientFactory,
+        MTrSettingsOptions settings
     )
     {
-        _settings = settings.Value;
+        return new MTrBrokerApi(httpClientFactory, settings);
+    }
+    
+    public HttpClient HttpClient { get; set; }
+    public MTrSettingsOptions Settings { get; set; }
+    private MTrBrokerApi
+    (
+        IHttpClientFactory httpClientFactory,
+        MTrSettingsOptions settings
+    )
+    {
+        HttpClient = httpClientFactory.CreateClient(nameof(MTrBrokerApi));
+        Settings = settings;
+        HttpClient.BaseAddress = new Uri(settings.RestHost);
+        HttpClient.Timeout = TimeSpan.FromMilliseconds(settings.Timeout);
     }
     
     #region General
@@ -36,7 +48,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = GeneralEndpoints.ServiceInfo();
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetServiceInfoResponse>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
@@ -63,7 +75,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = GeneralEndpoints.GetBranches(from, to, sortField, sortOrder);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetBranchesResponse>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path,
                 CancellationToken.None);
@@ -117,7 +129,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = GeneralEndpoints.GetRoles(from, to, sortField, sortOrder);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetRolesResponse>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path,
                 CancellationToken.None);
@@ -144,7 +156,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = GeneralEndpoints.RetrievePlatformLogsV2(page, size, from, to, sortOrder);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrRetrievePlatformLogsV2Request, MTrRetrievePlatformLogsV2Response>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Post,
                 path,
                 request,
@@ -178,7 +190,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = AccountEndpoints.GetAccounts(query, page, size, from, to, accountType, sortField, sortingOrder);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetAccountsResponse>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
@@ -205,7 +217,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = AccountEndpoints.GetAccountByEmail(email);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAccount>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
@@ -351,4 +363,9 @@ public class MTrBrokerApi : IMTrBrokerApi
     }
 
     #endregion
+
+    public void Dispose()
+    {
+        HttpClient.Dispose();
+    }
 }
