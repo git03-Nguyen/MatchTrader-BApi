@@ -14,8 +14,8 @@ public class MTrRole
     public long? PartnerId { get; set; }
     
     [JsonPropertyName("created")]
-    public string created { get; set; }
+    public DateTime created { get; set; }
     
     [JsonPropertyName("updated")]
-    public string updated { get; set; }
+    public DateTime updated { get; set; }
 }

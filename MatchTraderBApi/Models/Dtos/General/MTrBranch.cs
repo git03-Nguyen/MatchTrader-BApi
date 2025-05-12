@@ -8,7 +8,7 @@ public class MTrBranch
     public string Uuid { get; set; }
 
     [JsonPropertyName("partnerId")]
-    public string PartnerId { get; set; }
+    public long? PartnerId { get; set; }
 
     [JsonPropertyName("created")]
     public DateTime Created { get; set; }
