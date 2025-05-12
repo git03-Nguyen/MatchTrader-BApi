@@ -5,38 +5,19 @@ using MatchTraderBApi.Enums;
 using MatchTraderBApi.Exceptions;
 using MatchTraderBApi.Options;
 
-namespace MatchTraderBApi.Helpers;
+namespace MatchTraderBApi.HttpClientFactory;
 
-internal static class HttpClientHelper
+internal class HttpClientFactoryCustom : IHttpClientFactoryCustom
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new() { Converters = { new JsonStringEnumConverter() } };
-    private static readonly MediaTypeHeaderValue MediaTypeHeaderValue = new MediaTypeHeaderValue("application/json");
     private static readonly ProductInfoHeaderValue UserAgentHeaderValue = new ProductInfoHeaderValue("MatchTraderBApi", "1.0");
     
-    internal static async Task<TResponse> SendAuthorizedAsync<TResponse>
+    public async Task<TResponse> SendAuthorizedAsync<TReqBody, TResponse>
     (
         HttpClient httpClient,
         MTrSettingsOptions settings,
         HttpMethod method,
-        string path,
-        CancellationToken cancellationToken
-    )
-    {
-        return await SendAuthorizedAsync<object?, TResponse>(
-            httpClient,
-            settings,
-            method,
-            path,
-            null,
-            cancellationToken);
-    }
-    
-    internal static async Task<TResponse> SendAuthorizedAsync<TReqBody, TResponse>
-    (
-        HttpClient httpClient,
-        MTrSettingsOptions settings,
-        HttpMethod method,
-        string path,
+        string path, 
         TReqBody? content,
         CancellationToken cancellationToken
     )
@@ -50,7 +31,6 @@ internal static class HttpClientHelper
         
         // Append request body
         var requestBody = new StringContent(JsonSerializer.Serialize(content, JsonSerializerOptions));
-        requestBody.Headers.ContentType = MediaTypeHeaderValue;
         request.Content = requestBody;
 
         // Set headers
