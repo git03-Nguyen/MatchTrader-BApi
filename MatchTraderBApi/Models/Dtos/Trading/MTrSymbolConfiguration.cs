@@ -41,7 +41,7 @@ public class MTrSymbolConfiguration
     public decimal? MinCommission { get; set; }
 
     [JsonPropertyName("fixedLeverage")]
-    public bool FixedLeverage { get; set; }
+    public bool IsFixedLeverage { get; set; }
 
     [JsonPropertyName("rawLeverage")]
     public int? RawLeverage { get; set; }

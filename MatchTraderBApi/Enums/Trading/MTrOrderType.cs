@@ -9,4 +9,7 @@ public enum MTrOrderType
      
     [EnumMember(Value = "STOP")]
     Stop,
+    
+    [EnumMember(Value = "UNTYPE")]
+    UnType,
 }

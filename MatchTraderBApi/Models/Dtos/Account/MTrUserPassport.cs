@@ -5,8 +5,8 @@ namespace MatchTraderBApi.Models.Dtos.Account;
 public class MTrUserPassport
 {
     [JsonPropertyName("number")]
-    public string Number { get; set; }
+    public string? Number { get; set; }
 
     [JsonPropertyName("country")]
-    public string Country { get; set; }
+    public string? Country { get; set; }
 }

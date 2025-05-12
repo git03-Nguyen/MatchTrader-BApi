@@ -17,5 +17,5 @@ public class MTrAccountConfigurationForUpdate
     public string IbParentTradingAccountUuid { get; set; }
 
     [JsonPropertyName("accountTypeContact")]
-    public bool AccountTypeContact { get; set; }
+    public bool IsAccountTypeContact { get; set; }
 }

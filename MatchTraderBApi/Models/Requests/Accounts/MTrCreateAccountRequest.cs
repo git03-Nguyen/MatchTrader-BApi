@@ -20,7 +20,7 @@ public class MTrCreateAccountRequest
     public MTrClientType? ClientType { get; set; }
     
     [JsonPropertyName("createAsDepositedAccount")]
-    public bool CreateAsDepositedAccount { get; set; }
+    public bool IsCreateAsDepositedAccount { get; set; }
     
     [JsonPropertyName("personalDetails")]
     public MTrUserPersonalDetail PersonalDetails { get; set; }

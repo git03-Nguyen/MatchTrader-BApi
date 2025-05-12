@@ -23,5 +23,5 @@ public class MTrAccountConfigurationForCreate
     public MTrCrmUserScope MTrCrmUserScope { get; set; }
 
     [JsonPropertyName("accountTypeContact")]
-    public bool AccountTypeContact { get; set; }
+    public bool IsAccountTypeContact { get; set; }
 }

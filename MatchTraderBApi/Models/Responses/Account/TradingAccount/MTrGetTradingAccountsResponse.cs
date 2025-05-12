@@ -7,7 +7,7 @@ namespace MatchTraderBApi.Models.Responses.Account.TradingAccount;
 public class MTrGetTradingAccountsResponse
 {
     [JsonPropertyName("content")]
-    public List<MTrTradingAccount> Content { get; set; }
+    public List<MTrTradingAccount> Content { get; set; } = new();
     
     [JsonPropertyName("totalPages")]
     public int TotalPages { get; set; }

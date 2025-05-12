@@ -20,10 +20,10 @@ public class MTrRetrieveClosedPositionsByLoginsOrGroupsRequest
     public DateTime To { get; set; }
 
     [JsonPropertyName("includeLocked")]
-    public bool? IncludeLocked { get; set; }
+    public bool? IsIncludeLocked { get; set; }
 
     [JsonPropertyName("includeBlocked")]
-    public bool? IncludeBlocked { get; set; }
+    public bool? IsIncludeBlocked { get; set; }
 
     [JsonPropertyName("limit")]
     public int? Limit { get; set; }

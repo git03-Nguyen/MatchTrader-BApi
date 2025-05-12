@@ -5,10 +5,10 @@ namespace MatchTraderBApi.Models.Dtos.Account;
 public class MTrAccountManager
 {
     [JsonPropertyName("uuid")]
-    public string Uuid { get; set; }
+    public string? Uuid { get; set; }
 
     [JsonPropertyName("email")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [JsonPropertyName("name")]
     public string? Name { get; set; }

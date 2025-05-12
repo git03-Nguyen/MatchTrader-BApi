@@ -2,10 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace MatchTraderBApi.Models.Dtos.Trading;
 
-public class MTrClosedPosition
+public class MTrClosedPosition : MTrPosition
 {
     [JsonPropertyName("time")]
-    public string Time { get; set; }
+    public DateTime Time { get; set; }
 
     [JsonPropertyName("closePrice")]
     public decimal? ClosePrice { get; set; }
