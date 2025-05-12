@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums;
 
 namespace MatchTraderBApi.Models.Dtos.General;
 
@@ -23,5 +24,5 @@ public class MTrOfferSystem
     public bool IsActive { get; set; }
 
     [JsonPropertyName("systemType")]
-    public string SystemType { get; set; }
+    public MTrSystemType SystemType { get; set; }
 }

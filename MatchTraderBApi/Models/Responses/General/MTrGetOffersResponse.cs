@@ -6,5 +6,5 @@ namespace MatchTraderBApi.Models.Responses.General;
 public class MTrGetOffersResponse
 {
     [JsonPropertyName("offers")]
-    public List<MTrOffer> Offers { get; set; }
+    public List<MTrOffer> Offers { get; set; } = [];
 }

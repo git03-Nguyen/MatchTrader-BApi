@@ -35,10 +35,10 @@ public class MTrOffer
     public string? MoneyManager { get; set; }
 
     [JsonPropertyName("initialDeposit")]
-    public double InitialDeposit { get; set; }
+    public decimal InitialDeposit { get; set; }
 
     [JsonPropertyName("leverage")]
-    public double Leverage { get; set; }
+    public int Leverage { get; set; }
 
     [JsonPropertyName("verificationRequired")]
     public bool IsVerificationRequired { get; set; }

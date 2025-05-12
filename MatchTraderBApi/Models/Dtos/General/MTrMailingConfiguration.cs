@@ -14,7 +14,7 @@ public class MTrMailingConfiguration
     public string EmailHost { get; set; }
 
     [JsonPropertyName("emailPort")]
-    public int? EmailPort { get; set; } // Nullable int for emailPort
+    public int? EmailPort { get; set; }
 
     [JsonPropertyName("emailTls")]
     public bool IsEmailTls { get; set; }
