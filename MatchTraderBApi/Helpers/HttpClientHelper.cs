@@ -17,6 +17,24 @@ internal static class HttpClientHelper
     private static readonly MediaTypeHeaderValue MediaTypeHeaderValue = new MediaTypeHeaderValue("application/json");
     private static readonly ProductInfoHeaderValue UserAgentHeaderValue = new ProductInfoHeaderValue("MatchTraderBApi", "1.0");
     
+    internal static async Task<TResponse> SendAuthorizedAsync<TResponse>
+    (
+        HttpClient httpClient,
+        MTrSettingsOptions settings,
+        HttpMethod method,
+        string path,
+        CancellationToken cancellationToken
+    )
+    {
+        return await SendAuthorizedAsync<object?, TResponse>(
+            httpClient,
+            settings,
+            method,
+            path,
+            null,
+            cancellationToken);
+    }
+    
     internal static async Task<TResponse> SendAuthorizedAsync<TReqBody, TResponse>
     (
         HttpClient httpClient,
