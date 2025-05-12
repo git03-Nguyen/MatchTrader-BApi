@@ -102,7 +102,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = GeneralEndpoints.GetOffers(from, to, sortField, sortOrder);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetOffersResponse>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path,
                 CancellationToken.None);
@@ -244,7 +244,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = AccountEndpoints.GetAccountByUuid(accountUuid);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAccount>(
                 HttpClient, 
-                _settings, 
+                Settings, 
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
@@ -272,7 +272,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = AccountEndpoints.GetAccountTimelineEvents(accountUuid, eventType, from, to, sortField, sortOrder);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetAccountTimelineEventsResponse>(
                 HttpClient,
-                _settings,
+                Settings,
                 HttpMethod.Get,
                 path,
                 CancellationToken.None);
@@ -299,7 +299,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = AccountEndpoints.CreateAccount();
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrCreateAccountRequest, MTrCreateAccountResponse>(
                 HttpClient,
-                _settings,
+                Settings,
                 HttpMethod.Post,
                 path,
                 request,
@@ -327,7 +327,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var path = AccountEndpoints.UpdateAccountInfo(accountUuid);
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrUpdateAccountInfoRequest, MTrAccount>(
                 HttpClient,
-                _settings,
+                Settings,
                 HttpMethod.Post,
                 path,
                 request,
