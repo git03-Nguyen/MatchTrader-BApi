@@ -3,7 +3,7 @@ using MatchTraderBApi.Models.Dtos.Trading;
 
 namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
 
-public class MTrGetLedgerResponse
+public class MTrGetLedgersResponse
 {
     [JsonPropertyName("operations")]
     public List<MTrLedger> Operations { get; set; }

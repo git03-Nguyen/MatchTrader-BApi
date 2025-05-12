@@ -7,7 +7,7 @@ using MatchTraderBApi.Models.Responses.Account;
 
 namespace MatchTraderBApi.Services.Interfaces;
 
-public interface IMTrAccountApi
+public interface IMTrAccountBrokerApi
 {
     Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType, MTrAccountSortingField? sortField, MTrSortingOrder? sortingOrder);
     Task<MTrResponse<MTrAccount>> GetAccountByEmail(string email);

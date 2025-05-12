@@ -4,7 +4,7 @@ using MatchTraderBApi.Models.Dtos.Trading;
 
 namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
 
-public class MTrRetrieveOrderHistoryByLoginsOrGroupsResponse
+public class MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse
 {
     [JsonPropertyName("login")]
     public string Login { get; set; }

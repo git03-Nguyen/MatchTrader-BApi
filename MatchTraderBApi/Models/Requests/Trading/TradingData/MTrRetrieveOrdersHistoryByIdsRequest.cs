@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace MatchTraderBApi.Models.Requests.Trading.TradingData;
 
-public class MTrRetrieveOrderHistoryByIdsRequest
+public class MTrRetrieveOrdersHistoryByIdsRequest
 {
     [JsonPropertyName("systemUuid")]
     public string SystemUuid { get; set; }

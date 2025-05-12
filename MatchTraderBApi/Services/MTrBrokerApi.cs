@@ -4,11 +4,16 @@ using MatchTraderBApi.Enums.SortingFields;
 using MatchTraderBApi.Exceptions;
 using MatchTraderBApi.Helpers;
 using MatchTraderBApi.Models.Dtos.Account;
+using MatchTraderBApi.Models.Dtos.Trading;
 using MatchTraderBApi.Models.Requests.Accounts;
 using MatchTraderBApi.Models.Requests.General;
+using MatchTraderBApi.Models.Requests.Trading.TradingData;
 using MatchTraderBApi.Models.Responses;
 using MatchTraderBApi.Models.Responses.Account;
 using MatchTraderBApi.Models.Responses.General;
+using MatchTraderBApi.Models.Responses.Trading;
+using MatchTraderBApi.Models.Responses.Trading.TradingData;
+using MatchTraderBApi.Models.Responses.Trading.TradingData.Candle;
 using MatchTraderBApi.Options;
 
 namespace MatchTraderBApi.Services;
@@ -36,6 +41,11 @@ public class MTrBrokerApi : IMTrBrokerApi
         Settings = settings;
         HttpClient.BaseAddress = new Uri(settings.RestHost);
         HttpClient.Timeout = TimeSpan.FromMilliseconds(settings.Timeout);
+    }
+    
+    public void Dispose()
+    {
+        HttpClient.Dispose();
     }
     
     #region General
@@ -364,8 +374,92 @@ public class MTrBrokerApi : IMTrBrokerApi
 
     #endregion
 
-    public void Dispose()
+    #region Trading
+
+    public async Task<MTrResponse<MTrGetSymbolsResponse>> GetSymbols(string SystemUuid, string Group, string[]? Symbols)
     {
-        HttpClient.Dispose();
+        throw new NotImplementedException();
     }
+
+    public async Task<MTrResponse<MTrCloseAllPositionsResponse>> CloseAllPositions(string SystemUuid, string[] Logins)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrGetOpenPositionsResponse>> GetOpenPositions(string systemUuid, string login)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrGetClosedPositionsResponse>> GetClosedPositions(string systemUuid, string login, DateTime? from, DateTime? to)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrGetActiveOrdersResponse>> GetActiveOrders(string systemUuid, string login)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, MTrLedgerType[] types, DateTime? from, DateTime? to, int? limit)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrGroupConfiguration>> GetGroup(string systemUuid, string name)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<List<string>>> GetGroupNames(string systemUuid)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>> RetrieveOrdersHistoryByLoginsOrGroups(MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrRetrieveLedgersByLoginsOrGroupsResponse>> RetrieveLedgersByLoginsOrGroups(MTrRetrieveLedgersByLoginsOrGroupsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(MTrRetrieveOpenPositionsByLoginsOrGroupsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByLoginsOrGroups(MTrRetrieveClosedPositionsByLoginsOrGroupsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(MTrRetrieveOrdersHistoryByIdsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(MTrRetrieveOpenPositionsByIdsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByIds(MTrRetrieveClosedPositionsByIdsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(MTrRetrieveActiveOrdersByIdsRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTime from, DateTime to)
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
 }
