@@ -10,4 +10,5 @@ public enum MTrRetCode
     MTrRet405WrongMethod = 405,
     MTrRet422Unprocessed = 422,
     MTrRet500InternalError = 500,
+    MTrRet502BadGateway = 502,
 }
