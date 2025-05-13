@@ -3,7 +3,7 @@ using MatchTraderBApi.Enums.Account;
 
 namespace MatchTraderBApi.Models.Responses.Account;
 
-public class MTrCreateAccountTaskResponse
+public class MTrAddAccountTaskResponse
 {
     [JsonPropertyName("uuid")]
     public string Uuid { get; set; }

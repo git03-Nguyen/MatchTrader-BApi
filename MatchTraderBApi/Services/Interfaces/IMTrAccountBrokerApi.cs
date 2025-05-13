@@ -17,5 +17,5 @@ public interface IMTrAccountBrokerApi
     Task<MTrResponse<MTrAccount>> UpdateAccountInfo(string accountUuid, MTrUpdateAccountInfoRequest request);
     Task<MTrResponse<object?>> ChangeAccountPassword(MTrChangeAccountPasswordRequest request);
     Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(MTrAddAccountNoteRequest request);
-    Task<MTrResponse<MTrAddAccountTaskRequest>> AddTask(MTrAddAccountTaskRequest request);
+    Task<MTrResponse<MTrAddAccountTaskResponse>> AddTask(MTrAddAccountTaskRequest request);
 }

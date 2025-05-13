@@ -5,5 +5,5 @@ namespace MatchTraderBApi.Models.Requests.Accounts.TradingAcounts;
 public class MTrChangeTradingAccountLeverageRequest
 {
     [JsonPropertyName("leverage")]
-    public int Leverage { get; set; }
+    public uint Leverage { get; set; }
 }

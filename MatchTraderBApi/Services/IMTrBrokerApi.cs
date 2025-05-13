@@ -6,6 +6,7 @@ namespace MatchTraderBApi.Services;
 public interface IMTrBrokerApi : 
     IMTrGeneralBrokerApi,
     IMTrAccountBrokerApi,
+    IMTrTradingAccountApi,
     IMTrTradingBrokerApi,
     IDisposable
 {

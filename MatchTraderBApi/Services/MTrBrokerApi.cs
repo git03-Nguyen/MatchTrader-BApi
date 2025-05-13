@@ -6,10 +6,12 @@ using MatchTraderBApi.Helpers;
 using MatchTraderBApi.Models.Dtos.Account;
 using MatchTraderBApi.Models.Dtos.Trading;
 using MatchTraderBApi.Models.Requests.Accounts;
+using MatchTraderBApi.Models.Requests.Accounts.TradingAcounts;
 using MatchTraderBApi.Models.Requests.General;
 using MatchTraderBApi.Models.Requests.Trading.TradingData;
 using MatchTraderBApi.Models.Responses;
 using MatchTraderBApi.Models.Responses.Account;
+using MatchTraderBApi.Models.Responses.Account.TradingAccount;
 using MatchTraderBApi.Models.Responses.General;
 using MatchTraderBApi.Models.Responses.Trading;
 using MatchTraderBApi.Models.Responses.Trading.TradingData;
@@ -338,7 +340,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrUpdateAccountInfoRequest, MTrAccount>(
                 HttpClient,
                 Settings,
-                HttpMethod.Post,
+                HttpMethod.Patch,
                 path,
                 request,
                 CancellationToken.None);
@@ -359,21 +361,238 @@ public class MTrBrokerApi : IMTrBrokerApi
 
     public async Task<MTrResponse<object?>> ChangeAccountPassword(MTrChangeAccountPasswordRequest request)
     {
-        throw new NotImplementedException();
+        var response = new MTrResponse<object?>();
+        try
+        {
+            var path = AccountEndpoints.ChangeAccountPassword();
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrChangeAccountPasswordRequest, object?>(
+                HttpClient,
+                Settings,
+                HttpMethod.Post,
+                path,
+                request,
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
     }
 
-    public Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(MTrAddAccountNoteRequest request)
+    public async Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(MTrAddAccountNoteRequest request)
     {
-        throw new NotImplementedException();
+        var response = new MTrResponse<MTrAddAccountNoteResponse>();
+        try
+        {
+            var path = AccountEndpoints.AddNote();
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAddAccountNoteRequest, MTrAddAccountNoteResponse>(
+                HttpClient,
+                Settings,
+                HttpMethod.Post,
+                path,
+                request,
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
     }
 
-    public Task<MTrResponse<MTrAddAccountTaskRequest>> AddTask(MTrAddAccountTaskRequest request)
+    public async Task<MTrResponse<MTrAddAccountTaskResponse>> AddTask(MTrAddAccountTaskRequest request)
     {
-        throw new NotImplementedException();
+        var response = new MTrResponse<MTrAddAccountTaskResponse>();
+        try
+        {
+            var path = AccountEndpoints.AddNote();
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAddAccountTaskRequest, MTrAddAccountTaskResponse>(
+                HttpClient,
+                Settings,
+                HttpMethod.Post,
+                path,
+                request,
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
     }
 
     #endregion
 
+    #region Trading Accounts
+    
+    public async Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to,
+        MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder)
+    {
+        var response = new MTrResponse<MTrGetTradingAccountsResponse>();
+        try
+        {
+            var path = TradingAccountEndpoints.GetTradingAccounts(query, page, size, from, to, sortField, sortOrder);
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetTradingAccountsResponse>(
+                HttpClient, 
+                Settings, 
+                HttpMethod.Get, 
+                path, 
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
+    }
+
+    public async Task<MTrResponse<MTrTradingAccount>> GetTradingAccountByLogin(string systemUuid, string login)
+    {
+        var response = new MTrResponse<MTrTradingAccount>();
+        try
+        {
+            var path = TradingAccountEndpoints.GetTradingAccountByLogin(systemUuid, login);
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrTradingAccount>(
+                HttpClient, 
+                Settings, 
+                HttpMethod.Get, 
+                path, 
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
+    }
+
+    public async Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, MTrCreateTradingAccountRequest request)
+    {
+        var response = new MTrResponse<MTrTradingAccount>();
+        try
+        {
+            var path = TradingAccountEndpoints.CreateNewTradingAccount(accountUuid);
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrCreateTradingAccountRequest, MTrTradingAccount>(
+                HttpClient, 
+                Settings, 
+                HttpMethod.Post, 
+                path, 
+                request,
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
+    }
+
+    public async Task<MTrResponse<string>> UpdateTradingAccount(string systemUuid, string login, MTrUpdateTradingAccountRequest request)
+    {
+        var response = new MTrResponse<string>();
+        try
+        {
+            var path = TradingAccountEndpoints.UpdateTradingAccount(systemUuid, login);
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrUpdateTradingAccountRequest, string>(
+                HttpClient, 
+                Settings, 
+                HttpMethod.Patch, 
+                path, 
+                request,
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
+    }
+
+    public async Task<MTrResponse<string>> ChangeLeverage(string systemUuid, string login, uint leverage)
+    {
+        var response = new MTrResponse<string>();
+        try
+        {
+            var path = TradingAccountEndpoints.ChangeLeverage(systemUuid, login);
+            var request = new MTrChangeTradingAccountLeverageRequest
+            {
+                Leverage = leverage
+            };
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrChangeTradingAccountLeverageRequest, string>(
+                HttpClient, 
+                Settings, 
+                HttpMethod.Patch, 
+                path, 
+                request,
+                CancellationToken.None);
+            response.Data = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (MTrRequestException ex)
+        {
+            response.RetCode = ex.MTrRetCode;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
+    }
+
+    #endregion
+    
+    
     #region Trading
 
     public async Task<MTrResponse<MTrGetSymbolsResponse>> GetSymbols(string SystemUuid, string Group, string[]? Symbols)
