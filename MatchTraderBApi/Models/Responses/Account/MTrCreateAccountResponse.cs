@@ -25,7 +25,7 @@ public class MTrCreateAccountResponse
     public MTrVerificationStatus VerificationStatus { get; set; }
 
     [JsonPropertyName("type")]
-    public MTrClientType ClientType { get; set; }
+    public MTrClientType? ClientType { get; set; }
 
     [JsonPropertyName("personalDetails")]
     public MTrUserPersonalDetail PersonalDetails { get; set; }

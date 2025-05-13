@@ -1,7 +1,6 @@
 using MatchTraderBApi.Constants.RestEndpoints;
 using MatchTraderBApi.Enums;
 using MatchTraderBApi.Enums.SortingFields;
-using MatchTraderBApi.Exceptions;
 using MatchTraderBApi.Helpers;
 using MatchTraderBApi.Models.Dtos.Account;
 using MatchTraderBApi.Models.Dtos.Trading;
@@ -52,497 +51,237 @@ public class MTrBrokerApi : IMTrBrokerApi
     
     #region General
 
-    public async Task<MTrResponse<MTrGetServiceInfoResponse>> GetServiceInfo()
+    public Task<MTrResponse<MTrGetServiceInfoResponse>> GetServiceInfo(CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetServiceInfoResponse>();
-        try
-        {
-            var path = GeneralEndpoints.ServiceInfo();
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetServiceInfoResponse>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path, 
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = GeneralEndpoints.ServiceInfo();
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetServiceInfoResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrGetBranchesResponse>> GetBranches(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder)
+    public Task<MTrResponse<MTrGetBranchesResponse>> GetBranches(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetBranchesResponse>();
-        try
-        {
-            var path = GeneralEndpoints.GetBranches(from, to, sortField, sortOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetBranchesResponse>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = GeneralEndpoints.GetBranches(from, to, sortField, sortOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetBranchesResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrGetOffersResponse>> GetOffers(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder)
+    public Task<MTrResponse<MTrGetOffersResponse>> GetOffers(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetOffersResponse>();
-        try
-        {
-            var path = GeneralEndpoints.GetOffers(from, to, sortField, sortOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetOffersResponse>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = GeneralEndpoints.GetOffers(from, to, sortField, sortOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetOffersResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrGetRolesResponse>> GetRoles(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder)
+    public Task<MTrResponse<MTrGetRolesResponse>> GetRoles(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetRolesResponse>();
-        try
-        {
-            var path = GeneralEndpoints.GetRoles(from, to, sortField, sortOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetRolesResponse>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = GeneralEndpoints.GetRoles(from, to, sortField, sortOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetRolesResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrRetrievePlatformLogsV2Response>> RetrievePlatformLogsV2(int? page, int? size, DateTime? from, DateTime? to, MTrSortingOrder? sortOrder, MTrRetrievePlatformLogsV2Request request)
+    public Task<MTrResponse<MTrRetrievePlatformLogsV2Response>> RetrievePlatformLogsV2(int? page, int? size, DateTime? from, DateTime? to, MTrSortingOrder? sortOrder, MTrRetrievePlatformLogsV2Request request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrRetrievePlatformLogsV2Response>();
-        try
-        {
-            var path = GeneralEndpoints.RetrievePlatformLogsV2(page, size, from, to, sortOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrRetrievePlatformLogsV2Request, MTrRetrievePlatformLogsV2Response>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Post,
-                path,
-                request,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = GeneralEndpoints.RetrievePlatformLogsV2(page, size, from, to, sortOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrRetrievePlatformLogsV2Request, MTrRetrievePlatformLogsV2Response>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
     }
 
     #endregion
     
     #region Accounts
 
-    public async Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType,
-        MTrAccountSortingField? sortField, MTrSortingOrder? sortingOrder)
+    public Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType,
+        MTrAccountSortingField? sortField, MTrSortingOrder? sortingOrder, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetAccountsResponse>();
-        try
-        {
-            var path = AccountEndpoints.GetAccounts(query, page, size, from, to, accountType, sortField, sortingOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetAccountsResponse>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path, 
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.GetAccounts(query, page, size, from, to, accountType, sortField, sortingOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetAccountsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrAccount>> GetAccountByEmail(string email)
+    public Task<MTrResponse<MTrAccount>> GetAccountByEmail(string email, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrAccount>();
-        try
-        {
-            var path = AccountEndpoints.GetAccountByEmail(email);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAccount>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path, 
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.GetAccountByEmail(email);
+        return HttpClientHelper.SendAuthorizedAsync<MTrAccount>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrAccount>> GetAccountByUuid(string accountUuid)
+    public Task<MTrResponse<MTrAccount>> GetAccountByUuid(string accountUuid, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrAccount>();
-        try
-        {
-            var path = AccountEndpoints.GetAccountByUuid(accountUuid);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAccount>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path, 
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.GetAccountByUuid(accountUuid);
+        return HttpClientHelper.SendAuthorizedAsync<MTrAccount>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrGetAccountTimelineEventsResponse>> GetAccountTimelineEvents(string accountUuid, MTrAccountTimelineEventType? eventType, DateTime? from, DateTime? to,
-        MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder)
+    public Task<MTrResponse<MTrGetAccountTimelineEventsResponse>> GetAccountTimelineEvents(string accountUuid, MTrAccountTimelineEventType? eventType, DateTime? from, DateTime? to,
+        MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetAccountTimelineEventsResponse>();
-        try
-        {
-            var path = AccountEndpoints.GetAccountTimelineEvents(accountUuid, eventType, from, to, sortField, sortOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetAccountTimelineEventsResponse>(
-                HttpClient,
-                Settings,
-                HttpMethod.Get,
-                path,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.GetAccountTimelineEvents(accountUuid, eventType, from, to, sortField, sortOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetAccountTimelineEventsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrCreateAccountResponse>> CreateAccount(MTrCreateAccountRequest request)
+    public Task<MTrResponse<MTrCreateAccountResponse>> CreateAccount(MTrCreateAccountRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrCreateAccountResponse>();
-        try
-        {
-            var path = AccountEndpoints.CreateAccount();
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrCreateAccountRequest, MTrCreateAccountResponse>(
-                HttpClient,
-                Settings,
-                HttpMethod.Post,
-                path,
-                request,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.CreateAccount();
+        return HttpClientHelper.SendAuthorizedAsync<MTrCreateAccountRequest, MTrCreateAccountResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrAccount>> UpdateAccountInfo(string accountUuid, MTrUpdateAccountInfoRequest request)
+    public Task<MTrResponse<MTrAccount>> UpdateAccountInfo(string accountUuid, MTrUpdateAccountInfoRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrAccount>();
-        try
-        {
-            var path = AccountEndpoints.UpdateAccountInfo(accountUuid);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrUpdateAccountInfoRequest, MTrAccount>(
-                HttpClient,
-                Settings,
-                HttpMethod.Patch,
-                path,
-                request,
-                CancellationToken.None);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.UpdateAccountInfo(accountUuid);
+        return HttpClientHelper.SendAuthorizedAsync<MTrUpdateAccountInfoRequest, MTrAccount>(
+            HttpClient,
+            Settings,
+            HttpMethod.Patch,
+            path,
+            request,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<object?>> ChangeAccountPassword(MTrChangeAccountPasswordRequest request)
+    public Task<MTrResponse<object?>> ChangeAccountPassword(MTrChangeAccountPasswordRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<object?>();
-        try
-        {
-            var path = AccountEndpoints.ChangeAccountPassword();
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrChangeAccountPasswordRequest, object?>(
-                HttpClient,
-                Settings,
-                HttpMethod.Post,
-                path,
-                request,
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.ChangeAccountPassword();
+        return HttpClientHelper.SendAuthorizedAsync<MTrChangeAccountPasswordRequest, object?>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(MTrAddAccountNoteRequest request)
+    public Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(MTrAddAccountNoteRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrAddAccountNoteResponse>();
-        try
-        {
-            var path = AccountEndpoints.AddNote();
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAddAccountNoteRequest, MTrAddAccountNoteResponse>(
-                HttpClient,
-                Settings,
-                HttpMethod.Post,
-                path,
-                request,
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.AddNote();
+        return HttpClientHelper.SendAuthorizedAsync<MTrAddAccountNoteRequest, MTrAddAccountNoteResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrAddAccountTaskResponse>> AddTask(MTrAddAccountTaskRequest request)
+    public Task<MTrResponse<MTrAddAccountTaskResponse>> AddTask(MTrAddAccountTaskRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrAddAccountTaskResponse>();
-        try
-        {
-            var path = AccountEndpoints.AddNote();
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrAddAccountTaskRequest, MTrAddAccountTaskResponse>(
-                HttpClient,
-                Settings,
-                HttpMethod.Post,
-                path,
-                request,
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = AccountEndpoints.AddNote();
+        return HttpClientHelper.SendAuthorizedAsync<MTrAddAccountTaskRequest, MTrAddAccountTaskResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
     }
 
     #endregion
 
     #region Trading Accounts
     
-    public async Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to,
-        MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder)
+    public Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to,
+        MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetTradingAccountsResponse>();
-        try
-        {
-            var path = TradingAccountEndpoints.GetTradingAccounts(query, page, size, from, to, sortField, sortOrder);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetTradingAccountsResponse>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path, 
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = TradingAccountEndpoints.GetTradingAccounts(query, page, size, from, to, sortField, sortOrder);
+        return HttpClientHelper.SendAuthorizedAsync<MTrGetTradingAccountsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrTradingAccount>> GetTradingAccountByLogin(string systemUuid, string login)
+    public Task<MTrResponse<MTrTradingAccount>> GetTradingAccountByLogin(string systemUuid, string login, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrTradingAccount>();
-        try
-        {
-            var path = TradingAccountEndpoints.GetTradingAccountByLogin(systemUuid, login);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrTradingAccount>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Get, 
-                path, 
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = TradingAccountEndpoints.GetTradingAccountByLogin(systemUuid, login);
+        return HttpClientHelper.SendAuthorizedAsync<MTrTradingAccount>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, MTrCreateTradingAccountRequest request)
+    public Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, MTrCreateTradingAccountRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrTradingAccount>();
-        try
-        {
-            var path = TradingAccountEndpoints.CreateNewTradingAccount(accountUuid);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrCreateTradingAccountRequest, MTrTradingAccount>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Post, 
-                path, 
-                request,
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = TradingAccountEndpoints.CreateNewTradingAccount(accountUuid);
+        return HttpClientHelper.SendAuthorizedAsync<MTrCreateTradingAccountRequest, MTrTradingAccount>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<string>> UpdateTradingAccount(string systemUuid, string login, MTrUpdateTradingAccountRequest request)
+    public Task<MTrResponse<object?>> UpdateTradingAccount(string systemUuid, string login, MTrUpdateTradingAccountRequest request, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<string>();
-        try
-        {
-            var path = TradingAccountEndpoints.UpdateTradingAccount(systemUuid, login);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrUpdateTradingAccountRequest, string>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Patch, 
-                path, 
-                request,
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+        var path = TradingAccountEndpoints.UpdateTradingAccount(systemUuid, login);
+        return HttpClientHelper.SendAuthorizedAsync<MTrUpdateTradingAccountRequest, object?>(
+            HttpClient,
+            Settings,
+            HttpMethod.Patch,
+            path,
+            request,
+            cancellationToken);
     }
 
-    public async Task<MTrResponse<string>> ChangeLeverage(string systemUuid, string login, uint leverage)
+    public Task<MTrResponse<object?>> ChangeLeverage(string systemUuid, string login, uint leverage, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<string>();
-        try
+        var path = TradingAccountEndpoints.ChangeLeverage(systemUuid, login);
+        var request = new MTrChangeTradingAccountLeverageRequest
         {
-            var path = TradingAccountEndpoints.ChangeLeverage(systemUuid, login);
-            var request = new MTrChangeTradingAccountLeverageRequest
-            {
-                Leverage = leverage
-            };
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrChangeTradingAccountLeverageRequest, string>(
-                HttpClient, 
-                Settings, 
-                HttpMethod.Patch, 
-                path, 
-                request,
-                CancellationToken.None);
-            response.Data = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
-
-        return response;
+            Leverage = leverage
+        };
+        return HttpClientHelper.SendAuthorizedAsync<MTrChangeTradingAccountLeverageRequest, object?>(
+            HttpClient,
+            Settings,
+            HttpMethod.Patch,
+            path,
+            request,
+            cancellationToken);
     }
 
     #endregion

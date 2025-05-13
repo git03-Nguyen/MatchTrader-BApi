@@ -18,7 +18,7 @@ public class MTrAddAccountNoteResponse
     public string AccountUuid { get; set; }
     
     [JsonPropertyName("type")]
-    public MTrTaskType Type { get; set; }
+    public MTrNoteType Type { get; set; }
     
     [JsonPropertyName("content")]
     public string Content { get; set; }

@@ -10,9 +10,9 @@ namespace MatchTraderBApi.Services.Interfaces;
 public interface IMTrTradingAccountApi
 {
     Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size,
-        DateTime? from, DateTime? to, MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder);
-    Task<MTrResponse<MTrTradingAccount>> GetTradingAccountByLogin(string systemUuid, string login);
-    Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, MTrCreateTradingAccountRequest request);
-    Task<MTrResponse<string>> UpdateTradingAccount(string systemUuid, string login, MTrUpdateTradingAccountRequest request);
-    Task<MTrResponse<string>> ChangeLeverage(string systemUuid, string login, uint leverage);
+        DateTime? from, DateTime? to, MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default);
+    Task<MTrResponse<MTrTradingAccount>> GetTradingAccountByLogin(string systemUuid, string login, CancellationToken cancellationToken = default);
+    Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, MTrCreateTradingAccountRequest request, CancellationToken cancellationToken = default);
+    Task<MTrResponse<object?>> UpdateTradingAccount(string systemUuid, string login, MTrUpdateTradingAccountRequest request, CancellationToken cancellationToken = default);
+    Task<MTrResponse<object?>> ChangeLeverage(string systemUuid, string login, uint leverage, CancellationToken cancellationToken = default);
 }
