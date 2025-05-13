@@ -8,5 +8,5 @@ public class MTrCloseAllPositionsRequest
     public string SystemUuid { get; set; }
 
     [JsonPropertyName("logins")]
-    public List<string> Logins { get; set; }
+    public IEnumerable<string> Logins { get; set; }
 }

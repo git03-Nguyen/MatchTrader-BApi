@@ -8,10 +8,10 @@ public class MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse
 {
     [JsonPropertyName("login")]
     public string Login { get; set; }
-    
+
     [JsonPropertyName("group")]
     public string Group { get; set; }
-    
+
     [JsonPropertyName("historicalOrders")]
-    public List<MTrOrderHistory> HistoricalOrders { get; set; }
+    public List<MTrOrderHistory> Orders { get; set; }
 }

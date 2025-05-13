@@ -5,6 +5,12 @@ namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
 
 public class MTrGetLedgersResponse
 {
+    [JsonPropertyName("systemUuid")]
+    public string SystemUuid { get; set; }
+
+    [JsonPropertyName("login")]
+    public string Login { get; set; }
+
     [JsonPropertyName("operations")]
     public List<MTrLedger> Operations { get; set; }
 }

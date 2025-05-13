@@ -9,13 +9,13 @@ public class MTrRetrieveLedgersByLoginsOrGroupsRequest
     public string SystemUuid { get; set; }
 
     [JsonPropertyName("types")]
-    public List<MTrLedgerType> Types { get; set; }
+    public IEnumerable<MTrLedgerType> Types { get; set; }
 
     [JsonPropertyName("logins")]
-    public List<string> Logins { get; set; }
+    public IEnumerable<string>? Logins { get; set; }
 
     [JsonPropertyName("groups")]
-    public List<string> Groups { get; set; }
+    public IEnumerable<string>? Groups { get; set; }
 
     [JsonPropertyName("from")]
     public DateTime? From { get; set; }

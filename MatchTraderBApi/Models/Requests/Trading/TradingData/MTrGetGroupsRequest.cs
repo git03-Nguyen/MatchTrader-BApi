@@ -5,5 +5,5 @@ namespace MatchTraderBApi.Models.Requests.Trading.TradingData;
 public class MTrGetGroupsRequest
 {
     [JsonPropertyName("names")]
-    public List<string> Names { get; set; }
+    public IEnumerable<string> Names { get; set; }
 }

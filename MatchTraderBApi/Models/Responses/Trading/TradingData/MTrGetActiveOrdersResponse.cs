@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using MatchTraderBApi.Models.Dtos;
 using MatchTraderBApi.Models.Dtos.Trading;
 
 namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
@@ -7,5 +6,5 @@ namespace MatchTraderBApi.Models.Responses.Trading.TradingData;
 public class MTrGetActiveOrdersResponse
 {
     [JsonPropertyName("orders")]
-    public List<MTrOrder> Orders { get; set; }
+    public IEnumerable<MTrOrder> Orders { get; set; }
 }

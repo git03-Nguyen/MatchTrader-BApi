@@ -7,6 +7,7 @@ using MatchTraderBApi.Models.Dtos.Trading;
 using MatchTraderBApi.Models.Requests.Accounts;
 using MatchTraderBApi.Models.Requests.Accounts.TradingAcounts;
 using MatchTraderBApi.Models.Requests.General;
+using MatchTraderBApi.Models.Requests.Trading;
 using MatchTraderBApi.Models.Requests.Trading.TradingData;
 using MatchTraderBApi.Models.Responses;
 using MatchTraderBApi.Models.Responses.Account;
@@ -29,9 +30,15 @@ public class MTrBrokerApi : IMTrBrokerApi
     {
         return new MTrBrokerApi(httpClientFactory, settings);
     }
-    
+
     public HttpClient HttpClient { get; set; }
     public MTrSettingsOptions Settings { get; set; }
+
+    public void Dispose()
+    {
+        HttpClient.Dispose();
+    }
+
     private MTrBrokerApi
     (
         IHttpClientFactory httpClientFactory,
@@ -43,12 +50,7 @@ public class MTrBrokerApi : IMTrBrokerApi
         HttpClient.BaseAddress = new Uri(settings.RestHost);
         HttpClient.Timeout = TimeSpan.FromMilliseconds(settings.Timeout);
     }
-    
-    public void Dispose()
-    {
-        HttpClient.Dispose();
-    }
-    
+
     #region General
 
     public Task<MTrResponse<MTrGetServiceInfoResponse>> GetServiceInfo(CancellationToken cancellationToken = default)
@@ -108,7 +110,7 @@ public class MTrBrokerApi : IMTrBrokerApi
     }
 
     #endregion
-    
+
     #region Accounts
 
     public Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType,
@@ -220,7 +222,7 @@ public class MTrBrokerApi : IMTrBrokerApi
     #endregion
 
     #region Trading Accounts
-    
+
     public Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to,
         MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
@@ -285,61 +287,164 @@ public class MTrBrokerApi : IMTrBrokerApi
     }
 
     #endregion
-    
-    
+
+
     #region Trading
 
-    public async Task<MTrResponse<MTrGetSymbolsResponse>> GetSymbols(string SystemUuid, string Group, string[]? Symbols, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetSymbolsResponse>> GetSymbols(string systemUuid, string group, IEnumerable<string>? symbols, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingEndpoints.GetSymbols(systemUuid, group, symbols);
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetSymbolsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
+        return response;
     }
 
-    public async Task<MTrResponse<MTrCloseAllPositionsResponse>> CloseAllPositions(string SystemUuid, string[] Logins, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrCloseAllPositionsResponse>> CloseAllPositions(string SystemUuid, IEnumerable<string> Logins, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingEndpoints.CloseAllPositions();
+        var request = new MTrCloseAllPositionsRequest
+        {
+            SystemUuid = SystemUuid,
+            Logins = Logins
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrCloseAllPositionsRequest, MTrCloseAllPositionsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
     }
 
     public Task<MTrResponse<MTrGetOpenPositionsResponse>> GetOpenPositions(string systemUuid, string login, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.GetOpenPositions(systemUuid, login);
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetOpenPositionsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
+        return response;
     }
 
-    public Task<MTrResponse<MTrGetClosedPositionsResponse>> GetClosedPositions(string systemUuid, string login, DateTime? from, DateTime? to, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetClosedPositionsResponse>> GetClosedPositions(string systemUuid, string login, DateTimeOffset? from, DateTimeOffset? to, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.GetClosedPositions(systemUuid, login, from?.UtcDateTime, to?.UtcDateTime);
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetClosedPositionsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
+        return response;
     }
 
     public Task<MTrResponse<MTrGetActiveOrdersResponse>> GetActiveOrders(string systemUuid, string login, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.GetActiveOrders(systemUuid, login);
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetActiveOrdersResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
+        return response;
     }
 
-    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, MTrLedgerType[] types, DateTime? from, DateTime? to, int? limit, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, IEnumerable<MTrLedgerType> types, DateTimeOffset? from, DateTimeOffset? to, int? limit, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.GetLedgers(systemUuid, login, types, from?.UtcDateTime, to?.UtcDateTime, limit);
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetLedgersResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            cancellationToken);
+        return response;
     }
 
-    public Task<MTrResponse<MTrGroupConfiguration>> GetGroup(string systemUuid, string name, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<List<MTrGroupConfiguration>>> GetGroups(string systemUuid, IEnumerable<string> names, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.GetGroups(systemUuid);
+        var request = new MTrGetGroupsRequest
+        {
+            Names = names
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetGroupsRequest, List<MTrGroupConfiguration>>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
     }
 
     public Task<MTrResponse<List<string>>> GetGroupNames(string systemUuid, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.GetGroupNames(systemUuid);
+        var response = HttpClientHelper.SendAuthorizedAsync<List<string>>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get,
+            path,
+            cancellationToken);
+        return response;
     }
 
-    public Task<MTrResponse<List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>> RetrieveOrdersHistoryByLoginsOrGroups(MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>> RetrieveOrdersHistoryByLoginsOrGroups(string systemUuid, IEnumerable<MTrOrderStatus> statuses, IEnumerable<string>? logins, IEnumerable<string>? groups, DateTimeOffset? from = null, DateTimeOffset? to = null, int? limit = null, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.RetrieveOrdersHistoryByLoginsOrGroups();
+        var request = new MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest
+        {
+            SystemUuid = systemUuid,
+            Statuses = statuses,
+            Logins = logins,
+            Groups = groups,
+            From = from?.UtcDateTime,
+            To = to?.UtcDateTime,
+            Limit = limit
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest, List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
     }
 
-    public Task<MTrResponse<MTrRetrieveLedgersByLoginsOrGroupsResponse>> RetrieveLedgersByLoginsOrGroups(MTrRetrieveLedgersByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<List<MTrRetrieveLedgersByLoginsOrGroupsResponse>>> RetrieveLedgersByLoginsOrGroups(string systemUuid, IEnumerable<MTrLedgerType> types, IEnumerable<string>? logins, IEnumerable<string>? groups, DateTimeOffset? from = null, DateTimeOffset? to = null, int? limit = null, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.RetrieveLedgersByLoginsOrGroups();
+        var request = new MTrRetrieveLedgersByLoginsOrGroupsRequest
+        {
+            SystemUuid = systemUuid,
+            Types = types,
+            Logins = logins,
+            Groups = groups,
+            From = from?.UtcDateTime,
+            To = to?.UtcDateTime,
+            Limit = limit
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveLedgersByLoginsOrGroupsRequest, List<MTrRetrieveLedgersByLoginsOrGroupsResponse>>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
     }
 
-    public Task<MTrResponse<List<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(string systemUuid, IEnumerable<string>? logins, IEnumerable<string>? groups, int? limit = null, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<List<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>>> RetrieveOpenPositionsByLoginsOrGroups(string systemUuid, IEnumerable<string>? logins, IEnumerable<string>? groups, int? limit = null, CancellationToken cancellationToken = default)
     {
         var path = TradingDataEndpoints.RetrieveOpenPositionsByLoginsOrGroups();
         var request = new MTrRetrieveOpenPositionsByLoginsOrGroupsRequest
@@ -358,7 +463,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
         return response;
     }
-    
+
     public Task<MTrResponse<List<MTrRetrieveClosedPositionsResponse>>> RetrieveClosedPositionsByLoginsOrGroups(string systemUuid, IEnumerable<string>? logins, IEnumerable<string>? groups, DateTimeOffset from, DateTimeOffset to, int? limit, bool isIncludeLocked = true, bool isIncludeBlocked = false, CancellationToken cancellationToken = default)
     {
         var path = TradingDataEndpoints.RetrieveClosedPositionsByLoginsOrGroups();
@@ -446,7 +551,7 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
         return response;
     }
-    
+
     // TODO: The API Key seems to be not enough permission to use this endpoint
     public Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(string systemUuid, string login, IEnumerable<string> orderIds, CancellationToken cancellationToken = default)
     {
@@ -473,7 +578,7 @@ public class MTrBrokerApi : IMTrBrokerApi
         var response = HttpClientHelper.SendAuthorizedAsync<MTrGetCandlesResponse>(
             HttpClient,
             Settings,
-            HttpMethod.Get, 
+            HttpMethod.Get,
             path,
             cancellationToken);
         return response;

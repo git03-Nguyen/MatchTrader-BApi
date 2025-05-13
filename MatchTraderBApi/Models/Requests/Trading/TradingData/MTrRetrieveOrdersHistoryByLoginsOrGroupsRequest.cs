@@ -9,13 +9,13 @@ internal class MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest
     public string SystemUuid { get; set; }
 
     [JsonPropertyName("statuses")]
-    public List<MTrOrderStatus> Statuses { get; set; }
+    public IEnumerable<MTrOrderStatus> Statuses { get; set; }
 
     [JsonPropertyName("logins")]
-    public List<string> Logins { get; set; }
+    public IEnumerable<string>? Logins { get; set; }
 
     [JsonPropertyName("groups")]
-    public List<string> Groups { get; set; }
+    public IEnumerable<string>? Groups { get; set; }
 
     [JsonPropertyName("from")]
     public DateTime? From { get; set; }
