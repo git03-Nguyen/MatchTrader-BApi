@@ -64,12 +64,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -91,12 +87,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -118,12 +110,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -145,12 +133,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -173,12 +157,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 path,
                 request,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -189,8 +169,7 @@ public class MTrBrokerApi : IMTrBrokerApi
     }
 
     #endregion
-
-
+    
     #region Accounts
 
     public async Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType,
@@ -206,12 +185,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -233,12 +208,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -260,12 +231,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get, 
                 path, 
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -288,12 +255,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 HttpMethod.Get,
                 path,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -316,12 +279,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 path,
                 request,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -344,12 +303,8 @@ public class MTrBrokerApi : IMTrBrokerApi
                 path,
                 request,
                 CancellationToken.None);
-            response.Data = mtrResponse;
+            response.RetData = mtrResponse;
             response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (MTrRequestException ex)
-        {
-            response.RetCode = ex.MTrRetCode;
         }
         catch (Exception ex)
         {
@@ -595,89 +550,132 @@ public class MTrBrokerApi : IMTrBrokerApi
     
     #region Trading
 
-    public async Task<MTrResponse<MTrGetSymbolsResponse>> GetSymbols(string SystemUuid, string Group, string[]? Symbols)
+    public async Task<MTrResponse<MTrGetSymbolsResponse>> GetSymbols(string SystemUuid, string Group, string[]? Symbols, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<MTrResponse<MTrCloseAllPositionsResponse>> CloseAllPositions(string SystemUuid, string[] Logins)
+    public async Task<MTrResponse<MTrCloseAllPositionsResponse>> CloseAllPositions(string SystemUuid, string[] Logins, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrGetOpenPositionsResponse>> GetOpenPositions(string systemUuid, string login)
+    public Task<MTrResponse<MTrGetOpenPositionsResponse>> GetOpenPositions(string systemUuid, string login, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrGetClosedPositionsResponse>> GetClosedPositions(string systemUuid, string login, DateTime? from, DateTime? to)
+    public Task<MTrResponse<MTrGetClosedPositionsResponse>> GetClosedPositions(string systemUuid, string login, DateTime? from, DateTime? to, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrGetActiveOrdersResponse>> GetActiveOrders(string systemUuid, string login)
+    public Task<MTrResponse<MTrGetActiveOrdersResponse>> GetActiveOrders(string systemUuid, string login, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, MTrLedgerType[] types, DateTime? from, DateTime? to, int? limit)
+    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, MTrLedgerType[] types, DateTime? from, DateTime? to, int? limit, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrGroupConfiguration>> GetGroup(string systemUuid, string name)
+    public Task<MTrResponse<MTrGroupConfiguration>> GetGroup(string systemUuid, string name, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<List<string>>> GetGroupNames(string systemUuid)
+    public Task<MTrResponse<List<string>>> GetGroupNames(string systemUuid, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>> RetrieveOrdersHistoryByLoginsOrGroups(MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest request)
+    public Task<MTrResponse<List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>> RetrieveOrdersHistoryByLoginsOrGroups(MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveLedgersByLoginsOrGroupsResponse>> RetrieveLedgersByLoginsOrGroups(MTrRetrieveLedgersByLoginsOrGroupsRequest request)
+    public Task<MTrResponse<MTrRetrieveLedgersByLoginsOrGroupsResponse>> RetrieveLedgersByLoginsOrGroups(MTrRetrieveLedgersByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(MTrRetrieveOpenPositionsByLoginsOrGroupsRequest request)
+    public Task<MTrResponse<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(MTrRetrieveOpenPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByLoginsOrGroups(MTrRetrieveClosedPositionsByLoginsOrGroupsRequest request)
+    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByLoginsOrGroups(MTrRetrieveClosedPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(MTrRetrieveOrdersHistoryByIdsRequest request)
+    public Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(MTrRetrieveOrdersHistoryByIdsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(MTrRetrieveOpenPositionsByIdsRequest request)
+    public Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(MTrRetrieveOpenPositionsByIdsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByIds(MTrRetrieveClosedPositionsByIdsRequest request)
+    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByIds(MTrRetrieveClosedPositionsByIdsRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(MTrRetrieveActiveOrdersByIdsRequest request)
+    public async Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(MTrRetrieveActiveOrdersByIdsRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var path = TradingDataEndpoints.RetrieveActiveOrdersByIds();
+        var response = await HttpClientHelper.SendAuthorizedAsync<MTrRetrieveActiveOrdersByIdsRequest, MTrRetrieveActiveOrdersByIdsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
+        // try
+        // {
+        //     
+        //     var mtrResponse = 
+        //     response.Data = mtrResponse;
+        //     response.RetCode = MTrRetCode.MTrRet200Ok;
+        // }
+        // catch (MTrRequestException ex)
+        // {
+        //     response.RetCode = ex.MTrRetCode;
+        // }
+        // catch (Exception ex)
+        // {
+        //     response.RetCode = MTrRetCode.MTrRet500InternalError;
+        // }
+        //
+        // return response;
     }
 
-    public Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTime from, DateTime to)
+    public async Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTime from, DateTime to, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = new MTrResponse<MTrGetCandlesResponse>();
+        try
+        {
+            var path = TradingDataEndpoints.GetCandles(systemUuid, symbol, interval, from, to);
+            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetCandlesResponse>(
+                HttpClient,
+                Settings,
+                HttpMethod.Get, 
+                path,
+                cancellationToken);
+            response.RetData = mtrResponse;
+            response.RetCode = MTrRetCode.MTrRet200Ok;
+        }
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+        }
+
+        return response;
     }
 
     #endregion

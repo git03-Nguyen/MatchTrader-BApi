@@ -2,7 +2,8 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MatchTraderBApi.Enums;
-using MatchTraderBApi.Exceptions;
+using MatchTraderBApi.Extensions;
+using MatchTraderBApi.Models.Responses;
 using MatchTraderBApi.Options;
 
 namespace MatchTraderBApi.Helpers;
@@ -13,7 +14,7 @@ internal static class HttpClientHelper
     private static readonly MediaTypeHeaderValue MediaTypeHeaderValue = new MediaTypeHeaderValue("application/json");
     private static readonly ProductInfoHeaderValue UserAgentHeaderValue = new ProductInfoHeaderValue("MatchTraderBApi", "1.0");
     
-    internal static async Task<TResponse> SendAuthorizedAsync<TResponse>
+    internal static Task<MTrResponse<TResponse>> SendAuthorizedAsync<TResponse>
     (
         HttpClient httpClient,
         MTrSettingsOptions settings,
@@ -22,7 +23,7 @@ internal static class HttpClientHelper
         CancellationToken cancellationToken
     )
     {
-        return await SendAuthorizedAsync<object?, TResponse>(
+        return SendAuthorizedAsync<object?, TResponse>(
             httpClient,
             settings,
             method,
@@ -31,7 +32,7 @@ internal static class HttpClientHelper
             cancellationToken);
     }
     
-    internal static async Task<TResponse> SendAuthorizedAsync<TReqBody, TResponse>
+    internal static async Task<MTrResponse<TResponse>> SendAuthorizedAsync<TReqBody, TResponse>
     (
         HttpClient httpClient,
         MTrSettingsOptions settings,
@@ -46,32 +47,50 @@ internal static class HttpClientHelper
             throw new InvalidOperationException($"API key is not set.");
         }
         
-        var request = new HttpRequestMessage(method, path);
-        
-        // Append request body
-        var requestBody = new StringContent(JsonSerializer.Serialize(content, JsonSerializerOptions));
-        requestBody.Headers.ContentType = MediaTypeHeaderValue;
-        request.Content = requestBody;
-
-        // Set headers
-        request.Headers.Host = settings.RestHost;
-        request.Headers.UserAgent.Add(UserAgentHeaderValue);
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", settings.ApiKey);
-
-        var response = await httpClient.SendAsync(request, cancellationToken);
-        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
-        
-        if (!response.IsSuccessStatusCode)
+        var response = new MTrResponse<TResponse> { RetCode = MTrRetCode.MTrRet500InternalError };
+        try
         {
-            throw new MTrRequestException((MTrRetCode)response.StatusCode, responseContent);
+            var request = new HttpRequestMessage(method, path);
+
+            // Append request body
+            var requestBody = new StringContent(JsonSerializer.Serialize(content, JsonSerializerOptions));
+            requestBody.Headers.ContentType = MediaTypeHeaderValue;
+            request.Content = requestBody;
+
+            // Set headers
+            request.Headers.Host = settings.RestHost;
+            request.Headers.UserAgent.Add(UserAgentHeaderValue);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", settings.ApiKey);
+
+            var httpResponse = await httpClient.SendAsync(request, cancellationToken);
+            var httpResponseContent = await httpResponse.Content.ReadAsStringAsync(cancellationToken);
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                response.RetCode = httpResponse.StatusCode.ToMTrRetCode();
+                response.RetMessage = httpResponseContent;
+                return response;
+            }
+
+            var responseData = JsonSerializer.Deserialize<TResponse>(httpResponseContent, JsonSerializerOptions);
+            if (responseData is null)
+            {
+                response.RetCode = MTrRetCode.MTrRet500InternalError;
+                response.RetMessage = "Response cannot be deserialized";
+                return response;
+            }
         }
-        
-        var responseData = JsonSerializer.Deserialize<TResponse>(responseContent, JsonSerializerOptions);
-        if (responseData is null)
+        catch (ArgumentOutOfRangeException)
         {
-            throw new InvalidOperationException($"Failed to deserialize response data: {responseContent}");
+            throw;
         }
-        
-        return responseData;
+        catch (Exception ex)
+        {
+            response.RetCode = MTrRetCode.MTrRet500InternalError;
+            response.RetMessage = ex.Message;
+            return response;
+        }
+
+        return response;
     }
 }

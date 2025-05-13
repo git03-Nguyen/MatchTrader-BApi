@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Dtos.Trading;
 
@@ -20,7 +21,7 @@ public class MTrSymbol
     public string QuoteCurrency { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public MTrSymbolType Type { get; set; }
 
     [JsonPropertyName("pricePrecision")]
     public int? PricePrecision { get; set; }
