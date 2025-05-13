@@ -88,7 +88,6 @@ internal static class HttpClientHelper
         {
             response.RetCode = MTrRetCode.MTrRet500InternalError;
             response.RetMessage = ex.Message;
-            return response;
         }
 
         return response;

@@ -20,11 +20,83 @@ public interface IMTrTradingBrokerApi
     Task<MTrResponse<List<string>>> GetGroupNames(string systemUuid, CancellationToken cancellationToken = default);
     Task<MTrResponse<List<MTrRetrieveOrdersHistoryByLoginsOrGroupsResponse>>> RetrieveOrdersHistoryByLoginsOrGroups(MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default);
     Task<MTrResponse<MTrRetrieveLedgersByLoginsOrGroupsResponse>> RetrieveLedgersByLoginsOrGroups(MTrRetrieveLedgersByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(MTrRetrieveOpenPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByLoginsOrGroups(MTrRetrieveClosedPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(MTrRetrieveOrdersHistoryByIdsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(MTrRetrieveOpenPositionsByIdsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByIds(MTrRetrieveClosedPositionsByIdsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(MTrRetrieveActiveOrdersByIdsRequest request, CancellationToken cancellationToken = default);
-    Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTime from, DateTime to, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="systemUuid"></param>
+    /// <param name="logins"></param>
+    /// <param name="groups"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="limit"></param>
+    /// <param name="isIncludeLocked"></param>
+    /// <param name="isIncludeBlocked"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<List<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>>> RetrieveOpenPositionsByLoginsOrGroups(string systemUuid, IEnumerable<string>? logins, IEnumerable<string>? groups, int? limit = null, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<MTrRetrieveClosedPositionsResponse>> RetrieveClosedPositionsByLoginsOrGroups(MTrRetrieveClosedPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="systemUuid"></param>
+    /// <param name="login"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="orderIds"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(string systemUuid, string login, DateTimeOffset from, DateTimeOffset to, IEnumerable<string> orderIds, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="systemUuid"></param>
+    /// <param name="login"></param>
+    /// <param name="positionIds"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(string systemUuid, string login, IEnumerable<string> positionIds, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="systemUuid"></param>
+    /// <param name="login"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="positionIds"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<MTrRetrieveClosedPositionsResponse>> RetrieveClosedPositionsByIds(string systemUuid, string login, DateTimeOffset from, DateTimeOffset to, IEnumerable<string> positionIds,  CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="systemUuid"></param>
+    /// <param name="login"></param>
+    /// <param name="orderIds"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(string systemUuid, string login, IEnumerable<string> orderIds, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="systemUuid"></param>
+    /// <param name="symbol"></param>
+    /// <param name="interval"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTimeOffset from, DateTimeOffset to, CancellationToken cancellationToken = default);
 }

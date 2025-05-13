@@ -1,8 +1,10 @@
+using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
 namespace MatchTraderBApi.Models.Requests.Trading.TradingData;
 
-public class MTrRetrieveActiveOrdersByIdsRequest
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+internal struct MTrRetrieveActiveOrdersByIdsRequest
 {
     [JsonPropertyName("systemUuid")]
     public string SystemUuid { get; set; }
@@ -11,5 +13,5 @@ public class MTrRetrieveActiveOrdersByIdsRequest
     public string Login { get; set; }
 
     [JsonPropertyName("ids")]
-    public List<string> OrderIds { get; set; }
+    public IEnumerable<string> OrderIds { get; set; }
 }

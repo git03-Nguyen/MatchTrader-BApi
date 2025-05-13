@@ -3,7 +3,7 @@ using MatchTraderBApi.Enums.Trading;
 
 namespace MatchTraderBApi.Models.Requests.Trading.TradingData;
 
-public class MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest
+internal class MTrRetrieveOrdersHistoryByLoginsOrGroupsRequest
 {
     [JsonPropertyName("systemUuid")]
     public string SystemUuid { get; set; }

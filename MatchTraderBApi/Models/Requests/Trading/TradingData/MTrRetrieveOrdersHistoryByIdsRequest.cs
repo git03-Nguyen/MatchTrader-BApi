@@ -17,5 +17,5 @@ public class MTrRetrieveOrdersHistoryByIdsRequest
     public DateTime To { get; set; }
 
     [JsonPropertyName("ids")]
-    public List<string> OrderIds { get; set; }
+    public IEnumerable<string> OrderIds { get; set; }
 }

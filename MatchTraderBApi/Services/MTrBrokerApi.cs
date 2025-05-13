@@ -339,35 +339,17 @@ public class MTrBrokerApi : IMTrBrokerApi
         throw new NotImplementedException();
     }
 
-    public Task<MTrResponse<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(MTrRetrieveOpenPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<List<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>> RetrieveOpenPositionsByLoginsOrGroups(string systemUuid, IEnumerable<string>? logins, IEnumerable<string>? groups, int? limit = null, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByLoginsOrGroups(MTrRetrieveClosedPositionsByLoginsOrGroupsRequest request, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(MTrRetrieveOrdersHistoryByIdsRequest request, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(MTrRetrieveOpenPositionsByIdsRequest request, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<MTrResponse<MTrRetrieveClosedPositionsByLoginsOrGroupsResponse>> RetrieveClosedPositionsByIds(MTrRetrieveClosedPositionsByIdsRequest request, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(MTrRetrieveActiveOrdersByIdsRequest request, CancellationToken cancellationToken = default)
-    {
-        var path = TradingDataEndpoints.RetrieveActiveOrdersByIds();
-        var response = await HttpClientHelper.SendAuthorizedAsync<MTrRetrieveActiveOrdersByIdsRequest, MTrRetrieveActiveOrdersByIdsResponse>(
+        var path = TradingDataEndpoints.RetrieveOpenPositionsByLoginsOrGroups();
+        var request = new MTrRetrieveOpenPositionsByLoginsOrGroupsRequest
+        {
+            SystemUuid = systemUuid,
+            Logins = logins,
+            Groups = groups,
+            Limit = limit
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveOpenPositionsByLoginsOrGroupsRequest, List<MTrRetrieveOpenPositionsByLoginsOrGroupsResponse>>(
             HttpClient,
             Settings,
             HttpMethod.Post,
@@ -375,45 +357,125 @@ public class MTrBrokerApi : IMTrBrokerApi
             request,
             cancellationToken);
         return response;
-        // try
-        // {
-        //     
-        //     var mtrResponse = 
-        //     response.Data = mtrResponse;
-        //     response.RetCode = MTrRetCode.MTrRet200Ok;
-        // }
-        // catch (MTrRequestException ex)
-        // {
-        //     response.RetCode = ex.MTrRetCode;
-        // }
-        // catch (Exception ex)
-        // {
-        //     response.RetCode = MTrRetCode.MTrRet500InternalError;
-        // }
-        //
-        // return response;
+    }
+    
+    public Task<MTrResponse<List<MTrRetrieveClosedPositionsResponse>>> RetrieveClosedPositionsByLoginsOrGroups(string systemUuid, IEnumerable<string>? logins, IEnumerable<string>? groups, DateTimeOffset from, DateTimeOffset to, int? limit, bool isIncludeLocked = true, bool isIncludeBlocked = false, CancellationToken cancellationToken = default)
+    {
+        var path = TradingDataEndpoints.RetrieveClosedPositionsByLoginsOrGroups();
+        var request = new MTrRetrieveClosedPositionsByLoginsOrGroupsRequest
+        {
+            SystemUuid = systemUuid,
+            Logins = logins,
+            Groups = groups,
+            From = from.UtcDateTime,
+            To = to.UtcDateTime,
+            IsIncludeLocked = isIncludeLocked,
+            IsIncludeBlocked = isIncludeBlocked,
+            Limit = limit
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveClosedPositionsByLoginsOrGroupsRequest, List<MTrRetrieveClosedPositionsResponse>>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
     }
 
-    public async Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTime from, DateTime to, CancellationToken cancellationToken = default)
+    // TODO: The API Key seems to be not enough permission to use this endpoint
+    public Task<MTrResponse<List<MTrOrderHistory>>> RetrieveOrdersHistoryByIds(string systemUuid, string login, DateTimeOffset from, DateTimeOffset to, IEnumerable<string> orderIds, CancellationToken cancellationToken = default)
     {
-        var response = new MTrResponse<MTrGetCandlesResponse>();
-        try
+        var path = TradingDataEndpoints.RetrieveOrdersHistoryByIds();
+        var request = new MTrRetrieveOrdersHistoryByIdsRequest
         {
-            var path = TradingDataEndpoints.GetCandles(systemUuid, symbol, interval, from, to);
-            var mtrResponse = await HttpClientHelper.SendAuthorizedAsync<MTrGetCandlesResponse>(
-                HttpClient,
-                Settings,
-                HttpMethod.Get, 
-                path,
-                cancellationToken);
-            response.RetData = mtrResponse;
-            response.RetCode = MTrRetCode.MTrRet200Ok;
-        }
-        catch (Exception ex)
-        {
-            response.RetCode = MTrRetCode.MTrRet500InternalError;
-        }
+            SystemUuid = systemUuid,
+            Login = login,
+            From = from.UtcDateTime,
+            To = to.UtcDateTime,
+            OrderIds = orderIds
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveOrdersHistoryByIdsRequest, List<MTrOrderHistory>>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
+    }
 
+    // TODO: The API Key seems to be not enough permission to use this endpoint
+    public Task<MTrResponse<MTrRetrieveOpenPositionsByIdsResponse>> RetrieveOpenPositionsByIds(string systemUuid, string login, IEnumerable<string> positionIds, CancellationToken cancellationToken = default)
+    {
+        var path = TradingDataEndpoints.RetrieveOpenPositionsByIds();
+        var request = new MTrRetrieveOpenPositionsByIdsRequest
+        {
+            SystemUuid = systemUuid,
+            Login = login,
+            PositionIds = positionIds.ToList()
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveOpenPositionsByIdsRequest, MTrRetrieveOpenPositionsByIdsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
+    }
+
+    // TODO: The API Key seems to be not enough permission to use this endpoint
+    public Task<MTrResponse<MTrRetrieveClosedPositionsResponse>> RetrieveClosedPositionsByIds(string systemUuid, string login, DateTimeOffset from, DateTimeOffset to, IEnumerable<string> positionIds, CancellationToken cancellationToken = default)
+    {
+        var path = TradingDataEndpoints.RetrieveClosedPositionsByIds();
+        var request = new MTrRetrieveClosedPositionsByIdsRequest
+        {
+            SystemUuid = systemUuid,
+            Login = login,
+            PositionIds = positionIds.ToList(),
+            From = from.UtcDateTime,
+            To = to.UtcDateTime
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveClosedPositionsByIdsRequest, MTrRetrieveClosedPositionsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
+    }
+    
+    // TODO: The API Key seems to be not enough permission to use this endpoint
+    public Task<MTrResponse<MTrRetrieveActiveOrdersByIdsResponse>> RetrieveActiveOrdersByIds(string systemUuid, string login, IEnumerable<string> orderIds, CancellationToken cancellationToken = default)
+    {
+        var path = TradingDataEndpoints.RetrieveActiveOrdersByIds();
+        var request = new MTrRetrieveActiveOrdersByIdsRequest
+        {
+            SystemUuid = systemUuid,
+            Login = login,
+            OrderIds = orderIds.ToList()
+        };
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrRetrieveActiveOrdersByIdsRequest, MTrRetrieveActiveOrdersByIdsResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Post,
+            path,
+            request,
+            cancellationToken);
+        return response;
+    }
+
+    public Task<MTrResponse<MTrGetCandlesResponse>> GetCandles(string systemUuid, string symbol, MTrCandleInterval interval, DateTimeOffset from, DateTimeOffset to, CancellationToken cancellationToken = default)
+    {
+        var path = TradingDataEndpoints.GetCandles(systemUuid, symbol, interval, from.UtcDateTime, to.UtcDateTime);
+        var response = HttpClientHelper.SendAuthorizedAsync<MTrGetCandlesResponse>(
+            HttpClient,
+            Settings,
+            HttpMethod.Get, 
+            path,
+            cancellationToken);
         return response;
     }
 

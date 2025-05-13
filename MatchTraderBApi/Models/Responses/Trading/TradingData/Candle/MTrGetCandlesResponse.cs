@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using MatchTraderBApi.Enums;
-using MatchTraderBApi.Models.Dtos;
 using MatchTraderBApi.Models.Dtos.Trading;
 
 namespace MatchTraderBApi.Models.Responses.Trading.TradingData.Candle;
