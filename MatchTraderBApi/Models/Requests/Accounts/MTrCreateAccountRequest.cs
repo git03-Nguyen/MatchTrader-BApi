@@ -38,4 +38,26 @@ public class MTrCreateAccountRequest
     
     [JsonPropertyName("leadDetails")]
     public MTrUserLeadDetail? LeadDetails { get; set; }
+
+    public MTrCreateAccountRequest(string email, string password, MTrUserPersonalDetail personalDetails)
+    {
+        Email = email;
+        Password = password;
+        PersonalDetails = personalDetails;
+    }
+
+    public MTrCreateAccountRequest(string email, string password, string? offerUuid, MTrClientType? clientType, bool isCreateAsDepositedAccount, MTrUserPersonalDetail personalDetails, MTrUserContact? contactDetails, MTrAccountConfigurationForCreate? accountConfiguration, MTrUserAddress? addressDetails, MTrUserBankingDetail? bankingDetails, MTrUserLeadDetail? leadDetails)
+    {
+        Email = email;
+        Password = password;
+        OfferUuid = offerUuid;
+        ClientType = clientType;
+        IsCreateAsDepositedAccount = isCreateAsDepositedAccount;
+        PersonalDetails = personalDetails;
+        ContactDetails = contactDetails;
+        AccountConfiguration = accountConfiguration;
+        AddressDetails = addressDetails;
+        BankingDetails = bankingDetails;
+        LeadDetails = leadDetails;
+    }
 }

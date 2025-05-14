@@ -6,4 +6,13 @@ public class MTrUserLeadDetailForUpdate
 {
     [JsonPropertyName("leadStatusUuid")]
     public string LeadStatusUuid { get; set; }
+    
+    public MTrUserLeadDetailForUpdate()
+    {
+    }
+    
+    public MTrUserLeadDetailForUpdate(string leadStatusUuid)
+    {
+        LeadStatusUuid = leadStatusUuid;
+    }
 }

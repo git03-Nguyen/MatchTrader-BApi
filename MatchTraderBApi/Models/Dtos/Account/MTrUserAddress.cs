@@ -18,4 +18,13 @@ public class MTrUserAddress
 
     [JsonPropertyName("address")]
     public string? Address { get; set; }
+    
+    public MTrUserAddress(string? country, string? state, string? city, string? postCode, string? address)
+    {
+        Country = country;
+        State = state;
+        City = city;
+        PostCode = postCode;
+        Address = address;
+    }
 }

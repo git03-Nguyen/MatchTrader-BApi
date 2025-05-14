@@ -1,5 +1,6 @@
 using MatchTraderBApi.Constants.RestEndpoints;
 using MatchTraderBApi.Enums;
+using MatchTraderBApi.Enums.Account;
 using MatchTraderBApi.Enums.SortingFields;
 using MatchTraderBApi.Enums.Trading;
 using MatchTraderBApi.Helpers;
@@ -70,9 +71,9 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrGetBranchesResponse>> GetBranches(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetBranchesResponse>> GetBranches(DateTimeOffset? from, DateTimeOffset? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var path = GeneralEndpoints.GetBranches(from, to, sortField, sortOrder);
+        var path = GeneralEndpoints.GetBranches(from?.UtcDateTime, to?.UtcDateTime, sortField, sortOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrGetBranchesResponse>(
             HttpClient,
             Settings,
@@ -81,9 +82,9 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrGetOffersResponse>> GetOffers(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetOffersResponse>> GetOffers(DateTimeOffset? from, DateTimeOffset? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var path = GeneralEndpoints.GetOffers(from, to, sortField, sortOrder);
+        var path = GeneralEndpoints.GetOffers(from?.UtcDateTime, to?.UtcDateTime, sortField, sortOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrGetOffersResponse>(
             HttpClient,
             Settings,
@@ -92,9 +93,9 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrGetRolesResponse>> GetRoles(DateTime? from, DateTime? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetRolesResponse>> GetRoles(DateTimeOffset? from, DateTimeOffset? to, MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var path = GeneralEndpoints.GetRoles(from, to, sortField, sortOrder);
+        var path = GeneralEndpoints.GetRoles(from?.UtcDateTime, to?.UtcDateTime, sortField, sortOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrGetRolesResponse>(
             HttpClient,
             Settings,
@@ -103,9 +104,9 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrRetrievePlatformLogsV2Response>> RetrievePlatformLogsV2(int? page, int? size, DateTime? from, DateTime? to, MTrSortingOrder? sortOrder, MTrRetrievePlatformLogsV2Request request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrRetrievePlatformLogsV2Response>> RetrievePlatformLogsV2(int? page, int? size, DateTimeOffset? from, DateTimeOffset? to, MTrSortingOrder? sortOrder, MTrRetrievePlatformLogsV2Request request, CancellationToken cancellationToken = default)
     {
-        var path = GeneralEndpoints.RetrievePlatformLogsV2(page, size, from, to, sortOrder);
+        var path = GeneralEndpoints.RetrievePlatformLogsV2(page, size, from?.UtcDateTime, to?.UtcDateTime, sortOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrRetrievePlatformLogsV2Request, MTrRetrievePlatformLogsV2Response>(
             HttpClient,
             Settings,
@@ -119,10 +120,10 @@ public class MTrBrokerApi : IMTrBrokerApi
 
     #region Accounts
 
-    public Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to, MTrAccountType? accountType,
+    public Task<MTrResponse<MTrGetAccountsResponse>> GetAccounts(string? query, int? page, int? size, DateTimeOffset? from, DateTimeOffset? to, MTrAccountType? accountType,
         MTrAccountSortingField? sortField, MTrSortingOrder? sortingOrder, CancellationToken cancellationToken = default)
     {
-        var path = AccountEndpoints.GetAccounts(query, page, size, from, to, accountType, sortField, sortingOrder);
+        var path = AccountEndpoints.GetAccounts(query, page, size, from?.UtcDateTime, to?.UtcDateTime, accountType, sortField, sortingOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrGetAccountsResponse>(
             HttpClient,
             Settings,
@@ -153,10 +154,10 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrGetAccountTimelineEventsResponse>> GetAccountTimelineEvents(string accountUuid, MTrAccountTimelineEventType? eventType, DateTime? from, DateTime? to,
+    public Task<MTrResponse<MTrGetAccountTimelineEventsResponse>> GetAccountTimelineEvents(string accountUuid, MTrAccountTimelineEventType? eventType, DateTimeOffset? from, DateTimeOffset? to,
         MTrBasicSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var path = AccountEndpoints.GetAccountTimelineEvents(accountUuid, eventType, from, to, sortField, sortOrder);
+        var path = AccountEndpoints.GetAccountTimelineEvents(accountUuid, eventType, from?.UtcDateTime, to?.UtcDateTime, sortField, sortOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrGetAccountTimelineEventsResponse>(
             HttpClient,
             Settings,
@@ -189,9 +190,10 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<object?>> ChangeAccountPassword(MTrChangeAccountPasswordRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<object?>> ChangeAccountPassword(string accountUuid, string newPassword, CancellationToken cancellationToken = default)
     {
         var path = AccountEndpoints.ChangeAccountPassword();
+        var request = new MTrChangeAccountPasswordRequest(accountUuid, newPassword);
         return HttpClientHelper.SendAuthorizedAsync<MTrChangeAccountPasswordRequest, object?>(
             HttpClient,
             Settings,
@@ -201,9 +203,15 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(MTrAddAccountNoteRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrAddAccountNoteResponse>> AddNote(string accountUuid, string content, MTrNoteType type, CancellationToken cancellationToken = default)
     {
         var path = AccountEndpoints.AddNote();
+        var request = new MTrAddAccountNoteRequest
+        {
+            AccountUuid = accountUuid,
+            Content = content,
+            Type = type
+        };
         return HttpClientHelper.SendAuthorizedAsync<MTrAddAccountNoteRequest, MTrAddAccountNoteResponse>(
             HttpClient,
             Settings,
@@ -213,9 +221,18 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrAddAccountTaskResponse>> AddTask(MTrAddAccountTaskRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrAddAccountTaskResponse>> AddTask(string accountUuid, MTrTaskType type, DateTimeOffset startDate, MTrTaskStatus status, string accountManagerUuid, string comment, CancellationToken cancellationToken = default)
     {
         var path = AccountEndpoints.AddNote();
+        var request = new MTrAddAccountTaskRequest
+        {
+            AccountUuid = accountUuid,
+            Type = type,
+            StartDate = startDate.UtcDateTime,
+            Status = status,
+            AccountManagerUuid = accountManagerUuid,
+            Comment = comment
+        };
         return HttpClientHelper.SendAuthorizedAsync<MTrAddAccountTaskRequest, MTrAddAccountTaskResponse>(
             HttpClient,
             Settings,
@@ -229,10 +246,10 @@ public class MTrBrokerApi : IMTrBrokerApi
 
     #region Trading Accounts
 
-    public Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size, DateTime? from, DateTime? to,
+    public Task<MTrResponse<MTrGetTradingAccountsResponse>> GetTradingAccounts(string? query, int? page, int? size, DateTimeOffset? from, DateTimeOffset? to,
         MTrTradingAccountSortingField? sortField, MTrSortingOrder? sortOrder, CancellationToken cancellationToken = default)
     {
-        var path = TradingAccountEndpoints.GetTradingAccounts(query, page, size, from, to, sortField, sortOrder);
+        var path = TradingAccountEndpoints.GetTradingAccounts(query, page, size, from?.UtcDateTime, to?.UtcDateTime, sortField, sortOrder);
         return HttpClientHelper.SendAuthorizedAsync<MTrGetTradingAccountsResponse>(
             HttpClient,
             Settings,
@@ -252,9 +269,14 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, MTrCreateTradingAccountRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrTradingAccount>> CreateNewTradingAccount(string accountUuid, string offerId, string? commissionId, CancellationToken cancellationToken = default)
     {
         var path = TradingAccountEndpoints.CreateNewTradingAccount(accountUuid);
+        var request = new MTrCreateTradingAccountRequest
+        {
+            OfferId = offerId,
+            CommissionUuid = commissionId ?? string.Empty,
+        };
         return HttpClientHelper.SendAuthorizedAsync<MTrCreateTradingAccountRequest, MTrTradingAccount>(
             HttpClient,
             Settings,
@@ -264,9 +286,15 @@ public class MTrBrokerApi : IMTrBrokerApi
             cancellationToken);
     }
 
-    public Task<MTrResponse<object?>> UpdateTradingAccount(string systemUuid, string login, MTrUpdateTradingAccountRequest request, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<object?>> UpdateTradingAccount(string systemUuid, string login, string? offerId, string? commissionId, MTrTradingAccountAccess? access, CancellationToken cancellationToken = default)
     {
         var path = TradingAccountEndpoints.UpdateTradingAccount(systemUuid, login);
+        var request = new MTrUpdateTradingAccountRequest
+        {
+            OfferUuid = offerId,
+            CommissionUuid = commissionId,
+            Access = access
+        };
         return HttpClientHelper.SendAuthorizedAsync<MTrUpdateTradingAccountRequest, object?>(
             HttpClient,
             Settings,

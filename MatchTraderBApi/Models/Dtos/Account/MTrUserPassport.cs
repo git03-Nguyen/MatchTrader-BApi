@@ -9,4 +9,10 @@ public class MTrUserPassport
 
     [JsonPropertyName("country")]
     public string? Country { get; set; }
+    
+    public MTrUserPassport(string? number = null, string? country = null)
+    {
+        Number = number;
+        Country = country;
+    }
 }

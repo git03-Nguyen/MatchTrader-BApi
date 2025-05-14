@@ -9,4 +9,10 @@ public class MTrChangeAccountPasswordRequest
     
     [JsonPropertyName("newPassword")]
     public string NewPassword { get; set; }
+    
+    public MTrChangeAccountPasswordRequest(string accountUuid, string newPassword)
+    {
+        AccountUuid = accountUuid;
+        NewPassword = newPassword;
+    }
 }

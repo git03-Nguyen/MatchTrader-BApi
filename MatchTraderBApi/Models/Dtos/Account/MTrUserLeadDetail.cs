@@ -15,4 +15,12 @@ public class MTrUserLeadDetail
 
     [JsonPropertyName("becomeActiveClientTime")]
     public DateTime? BecomeActiveClientTime { get; set; }
+    
+    public MTrUserLeadDetail(string? statusUuid, string? source, string? providerUuid, DateTimeOffset? becomeActiveClientTime)
+    {
+        StatusUuid = statusUuid;
+        Source = source;
+        ProviderUuid = providerUuid;
+        BecomeActiveClientTime = becomeActiveClientTime?.UtcDateTime;
+    }
 }

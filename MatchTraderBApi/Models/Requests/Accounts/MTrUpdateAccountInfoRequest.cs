@@ -10,26 +10,26 @@ public class MTrUpdateAccountInfoRequest
     public string Email { get; set; }
 
     [JsonPropertyName("verificationStatus")]
-    public MTrVerificationStatus VerificationStatus { get; set; }
+    public MTrVerificationStatus? VerificationStatus { get; set; }
 
     [JsonPropertyName("clientType")]
-    public MTrClientType ClientType { get; set; }
+    public MTrClientType? ClientType { get; set; }
 
     [JsonPropertyName("personalDetails")]
-    public MTrUserPersonalDetail PersonalDetails { get; set; }
+    public MTrUserPersonalDetail? PersonalDetails { get; set; }
 
     [JsonPropertyName("contactDetails")]
-    public MTrUserContact ContactDetails { get; set; }
+    public MTrUserContact? ContactDetails { get; set; }
 
     [JsonPropertyName("accountConfiguration")]
-    public MTrAccountConfigurationForUpdate AccountConfiguration { get; set; }
+    public MTrAccountConfigurationForUpdate? AccountConfiguration { get; set; }
 
     [JsonPropertyName("addressDetails")]
-    public MTrUserAddress AddressDetails { get; set; }
+    public MTrUserAddress? AddressDetails { get; set; }
 
     [JsonPropertyName("bankingDetails")]
-    public MTrUserBankingDetail BankingDetails { get; set; }
+    public MTrUserBankingDetail? BankingDetails { get; set; }
 
     [JsonPropertyName("leadDetails")]
-    public MTrUserLeadDetailForUpdate LeadDetails { get; set; }
+    public MTrUserLeadDetailForUpdate? LeadDetails { get; set; }
 }

@@ -12,4 +12,11 @@ public class MTrUserContact
 
     [JsonPropertyName("toContact")]
     public MTrToContact? ToContact { get; set; }
+    
+    public MTrUserContact(string? phoneNumber = null, string? faxNumber = null, MTrToContact? toContact = null)
+    {
+        PhoneNumber = phoneNumber;
+        FaxNumber = faxNumber;
+        ToContact = toContact;
+    }
 }

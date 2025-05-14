@@ -48,4 +48,23 @@ public class MTrRetrievePlatformLogsV2Request
 
     [JsonPropertyName("appResolutionFilter")]
     public string AppResolution { get; set; }
+    
+    public MTrRetrievePlatformLogsV2Request(string accountUuid, string accountEmail, string tradingAccountUuid, string tradingAccountLogin, string clientIp, string browserId, string level, string eventFilter, string country, string appVersion, string appType, string deviceType, string view, string userAgent, string appResolution)
+    {
+        AccountUuid = accountUuid;
+        AccountEmail = accountEmail;
+        TradingAccountUuid = tradingAccountUuid;
+        TradingAccountLogin = tradingAccountLogin;
+        ClientIp = clientIp;
+        BrowserId = browserId;
+        Level = level;
+        Event = eventFilter;
+        Country = country;
+        AppVersion = appVersion;
+        AppType = appType;
+        DeviceType = deviceType;
+        View = view;
+        UserAgent = userAgent;
+        AppResolution = appResolution;
+    }
 }

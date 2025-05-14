@@ -18,4 +18,17 @@ public class MTrAccountConfigurationForUpdate
 
     [JsonPropertyName("accountTypeContact")]
     public bool IsAccountTypeContact { get; set; }
+
+    public MTrAccountConfigurationForUpdate()
+    {
+    }
+
+    public MTrAccountConfigurationForUpdate(string branchUuid, string roleUuid, string accountManagerUuid, string ibParentTradingAccountUuid, bool isAccountTypeContact)
+    {
+        BranchUuid = branchUuid;
+        RoleUuid = roleUuid;
+        AccountManagerUuid = accountManagerUuid;
+        IbParentTradingAccountUuid = ibParentTradingAccountUuid;
+        IsAccountTypeContact = isAccountTypeContact;
+    }
 }

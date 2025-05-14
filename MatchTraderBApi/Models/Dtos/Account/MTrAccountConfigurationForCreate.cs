@@ -24,4 +24,20 @@ public class MTrAccountConfigurationForCreate
 
     [JsonPropertyName("accountTypeContact")]
     public bool IsAccountTypeContact { get; set; }
+
+    public MTrAccountConfigurationForCreate()
+    {
+        
+    }
+    
+    public MTrAccountConfigurationForCreate(long? partnerId, string branchUuid, string roleUuid, string accountManagerUuid, string ibParentTradingAccountUuid, MTrCrmUserScope mTrCrmUserScope, bool isAccountTypeContact)
+    {
+        PartnerId = partnerId;
+        BranchUuid = branchUuid;
+        RoleUuid = roleUuid;
+        AccountManagerUuid = accountManagerUuid;
+        IbParentTradingAccountUuid = ibParentTradingAccountUuid;
+        MTrCrmUserScope = mTrCrmUserScope;
+        IsAccountTypeContact = isAccountTypeContact;
+    }
 }
