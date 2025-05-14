@@ -1,8 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MatchTraderBApi.Enums;
-using MatchTraderBApi.Exceptions;
 using MatchTraderBApi.Options;
 
 namespace MatchTraderBApi.HttpClientFactory;
@@ -15,7 +13,7 @@ internal class HttpClientFactoryCustom : IHttpClientFactoryCustom
     public async Task<TResponse> SendAuthorizedAsync<TReqBody, TResponse>
     (
         HttpClient httpClient,
-        MTrSettingsOptions settings,
+        IMTrSettingsOptions settings,
         HttpMethod method,
         string path, 
         TReqBody? content,

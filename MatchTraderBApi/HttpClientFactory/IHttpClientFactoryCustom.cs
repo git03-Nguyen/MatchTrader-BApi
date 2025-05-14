@@ -7,7 +7,7 @@ internal interface IHttpClientFactoryCustom
     Task<TResponse> SendAuthorizedAsync<TReqBody, TResponse>
     (
         HttpClient httpClient,
-        MTrSettingsOptions settings,
+        IMTrSettingsOptions settings,
         HttpMethod method,
         string path,
         TReqBody? content,

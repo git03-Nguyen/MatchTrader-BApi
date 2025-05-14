@@ -47,7 +47,6 @@ public static class ServiceExtensions
                     )
                 : Policy.NoOpAsync<HttpResponseMessage>();
 
-            // Combine both if needed
             return Policy.WrapAsync(circuitBreakerPolicy, retryPolicy);
         });
             
