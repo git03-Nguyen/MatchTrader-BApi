@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using MatchTraderBApi.Enums.Account;
-using MatchTraderBApi.Models.Dtos;
 using MatchTraderBApi.Models.Dtos.Account;
 
 namespace MatchTraderBApi.Models.Requests.Accounts;

@@ -1,7 +1,6 @@
 using MatchTraderBApi.Enums;
 using MatchTraderBApi.Enums.Trading;
 using MatchTraderBApi.Models.Dtos.Trading;
-using MatchTraderBApi.Models.Requests.Trading.TradingData;
 using MatchTraderBApi.Models.Responses;
 using MatchTraderBApi.Models.Responses.Trading;
 using MatchTraderBApi.Models.Responses.Trading.TradingData;

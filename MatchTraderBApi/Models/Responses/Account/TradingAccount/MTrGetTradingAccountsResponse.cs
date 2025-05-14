@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using MatchTraderBApi.Models.Dtos;
 using MatchTraderBApi.Models.Dtos.Account;
 
 namespace MatchTraderBApi.Models.Responses.Account.TradingAccount;
