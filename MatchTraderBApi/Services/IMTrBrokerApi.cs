@@ -11,5 +11,5 @@ public interface IMTrBrokerApi :
     IDisposable
 {
     HttpClient HttpClient { get; set; }
-    MTrSettingsOptions Settings { get; set; }
+    IMTrSettingsOptions Settings { get; set; }
 }

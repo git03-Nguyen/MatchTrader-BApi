@@ -27,18 +27,19 @@ public class MTrBrokerApi : IMTrBrokerApi
     public static MTrBrokerApi Create
     (
         IHttpClientFactory httpClientFactory,
-        MTrSettingsOptions settings
+        IMTrSettingsOptions settings
     )
     {
         return new MTrBrokerApi(httpClientFactory, settings);
     }
 
     public HttpClient HttpClient { get; set; }
-    public MTrSettingsOptions Settings { get; set; }
+    public IMTrSettingsOptions Settings { get; set; }
 
     public void Dispose()
     {
         HttpClient.Dispose();
+        GC.SuppressFinalize(this);
     }
     
     ~MTrBrokerApi()
@@ -49,7 +50,7 @@ public class MTrBrokerApi : IMTrBrokerApi
     private MTrBrokerApi
     (
         IHttpClientFactory httpClientFactory,
-        MTrSettingsOptions settings
+        IMTrSettingsOptions settings
     )
     {
         HttpClient = httpClientFactory.CreateClient(nameof(MTrBrokerApi));

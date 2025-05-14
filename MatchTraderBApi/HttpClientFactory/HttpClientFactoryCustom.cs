@@ -43,7 +43,7 @@ internal class HttpClientFactoryCustom : IHttpClientFactoryCustom
         
         if (!response.IsSuccessStatusCode)
         {
-            throw new MTrRequestException((MTrRetCode)response.StatusCode, responseContent);
+            throw new HttpRequestException($"Request failed with status code {response.StatusCode}: {responseContent}");
         }
         
         var responseData = JsonSerializer.Deserialize<TResponse>(responseContent, JsonSerializerOptions);

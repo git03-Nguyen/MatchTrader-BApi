@@ -17,7 +17,7 @@ internal static class HttpClientHelper
     internal static Task<MTrResponse<TResponse>> SendAuthorizedAsync<TResponse>
     (
         HttpClient httpClient,
-        MTrSettingsOptions settings,
+        IMTrSettingsOptions settings,
         HttpMethod method,
         string path,
         CancellationToken cancellationToken
@@ -35,7 +35,7 @@ internal static class HttpClientHelper
     internal static async Task<MTrResponse<TResponse>> SendAuthorizedAsync<TReqBody, TResponse>
     (
         HttpClient httpClient,
-        MTrSettingsOptions settings,
+        IMTrSettingsOptions settings,
         HttpMethod method,
         string path,
         TReqBody? content,
