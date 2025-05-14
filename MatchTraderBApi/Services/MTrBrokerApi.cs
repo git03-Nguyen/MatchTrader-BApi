@@ -39,6 +39,11 @@ public class MTrBrokerApi : IMTrBrokerApi
     {
         HttpClient.Dispose();
     }
+    
+    ~MTrBrokerApi()
+    {
+        HttpClient.Dispose();
+    }
 
     private MTrBrokerApi
     (

@@ -1,5 +1,4 @@
 using System.Net.Http.Headers;
-using MatchTraderBApi.Exceptions;
 using MatchTraderBApi.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
@@ -11,14 +10,12 @@ public static class ServiceExtensions
     public static IServiceCollection AddMatchTraderBApi(this IServiceCollection services)
     {
         var retryPolicy = Policy<HttpResponseMessage>
-            .Handle<MTrRequestException>()
-            .Or<TimeoutException>()
+            .Handle<TimeoutException>()
             .OrResult(response => !response.IsSuccessStatusCode)
             .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
         var circuitBreakerPolicy = Policy<HttpResponseMessage>
-            .Handle<MTrRequestException>()
-            .Or<TimeoutException>()
+            .Handle<TimeoutException>()
             .OrResult(response => !response.IsSuccessStatusCode)
             .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30));
 
