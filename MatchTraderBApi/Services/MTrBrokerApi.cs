@@ -1,6 +1,7 @@
 using MatchTraderBApi.Constants.RestEndpoints;
 using MatchTraderBApi.Enums;
 using MatchTraderBApi.Enums.SortingFields;
+using MatchTraderBApi.Enums.Trading;
 using MatchTraderBApi.Helpers;
 using MatchTraderBApi.Models.Dtos.Account;
 using MatchTraderBApi.Models.Dtos.Trading;
@@ -357,7 +358,7 @@ public class MTrBrokerApi : IMTrBrokerApi
         return response;
     }
 
-    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, IEnumerable<MTrLedgerType> types, DateTimeOffset? from, DateTimeOffset? to, int? limit, CancellationToken cancellationToken = default)
+    public Task<MTrResponse<MTrGetLedgersResponse>> GetLedgers(string systemUuid, string login, IEnumerable<MTrLedgerType> types, DateTimeOffset? from = null, DateTimeOffset? to = null, int? limit = null, CancellationToken cancellationToken = default)
     {
         var path = TradingDataEndpoints.GetLedgers(systemUuid, login, types, from?.UtcDateTime, to?.UtcDateTime, limit);
         var response = HttpClientHelper.SendAuthorizedAsync<MTrGetLedgersResponse>(
